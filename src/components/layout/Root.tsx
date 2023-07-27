@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
-import SideNavigation from "./SideNav";
+import Header from "./Header";
 
 const RootLayout = () => {
   return (
     <>
-      <SideNavigation />
+      <Header />
       <main>
         <Outlet />
       </main>
