@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import InvoicesList from "../invoices/InvoicesList";
 import { Invoice } from "../../types";
+import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
 
 const InvoicesPage = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -27,7 +28,23 @@ const InvoicesPage = () => {
 
   return (
     <>
-      <h1>Invoices</h1>
+      <div className="heading">
+        <h1>Invoices</h1>
+        <p>Invoices</p>
+        <div>
+          <label htmlFor="">Filter by status</label>
+          <select name="" id="">
+            <option value="">All</option>
+            <option value="">Pending</option>
+            <option value="">Draft</option>
+            <option value="">Paid</option>
+          </select>
+        </div>
+        <button>
+          <IconPlus />
+          <span>New Invoice</span>
+        </button>
+      </div>
       {invoices.map((invoice) => (
         <InvoicesList key={invoice.id} invoice={invoice} />
       ))}

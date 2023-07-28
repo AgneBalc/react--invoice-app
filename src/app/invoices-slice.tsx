@@ -4,13 +4,11 @@ import { Invoice, InvoiceStatus } from "../types";
 type InvoicesInicialState = {
   invoices: Invoice[];
   status: InvoiceStatus;
-  totalQuantity: number;
 };
 
 const initialState: InvoicesInicialState = {
   invoices: [],
   status: "draft",
-  totalQuantity: 0,
 };
 
 const invoicesSlice = createSlice({
