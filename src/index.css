@@ -8,9 +8,17 @@
   margin: 0;
 }
 
+body {
+  position: relative;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+ul {
+  list-style: none;
 }
 
 button {
@@ -49,4 +57,9 @@ h4 {
   font-size: 0.75rem;
   line-height: 0.9375rem;
   letter-spacing: -0.25px;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 730px;
 }
