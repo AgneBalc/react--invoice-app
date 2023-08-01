@@ -1,6 +1,19 @@
+import { useParams } from "react-router-dom";
+import { useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
+import { Invoice } from "../../types";
 
 const InvoiceDetailPage = () => {
+  const { invoices } = useAppSelector((state) => state.invoices);
+  const { id: currentInvoiceId } = useParams();
+  const currentInvoice: Invoice | undefined = invoices.find(
+    (invoice) => invoice.id === currentInvoiceId
+  );
+
+  if (!currentInvoice) {
+    return <p>This invoice does not exist</p>;
+  }
+
   return (
     <>
       <button>
@@ -11,7 +24,7 @@ const InvoiceDetailPage = () => {
         <p>Status</p>
         <div className="status-box">
           <div></div>
-          <p>{invoice.status}</p>
+          <p>{currentInvoice.status}</p>
         </div>
         <div className="action-buttons">
           <button>Edit</button>
@@ -22,46 +35,46 @@ const InvoiceDetailPage = () => {
       <section>
         <div className="main-info">
           <div>
-            <h1>{invoice.id}</h1>
-            <p>{invoice.description}</p>
+            <h1>{currentInvoice.id}</h1>
+            <p>{currentInvoice.description}</p>
           </div>
           <address>
-            {invoice.senderAddress.street}
+            {currentInvoice.senderAddress.street}
             <br />
-            {invoice.senderAddress.city}
+            {currentInvoice.senderAddress.city}
             <br />
-            {invoice.senderAddress.postCode}
+            {currentInvoice.senderAddress.postCode}
             <br />
-            {invoice.senderAddress.country}
+            {currentInvoice.senderAddress.country}
           </address>
           <div className="invoice-dates">
             <div className="created-date">
               <h2>Invoice date</h2>
-              <p>{invoice.createdAt}</p>
+              <p>{currentInvoice.createdAt}</p>
             </div>
             <div className="payment-due">
               <h2>Payment Due</h2>
-              <p>{invoice.paymentDue}</p>
+              <p>{currentInvoice.paymentDue}</p>
             </div>
           </div>
           <div className="client-address">
             <div className="clilent-name">
               <h2>Bill To</h2>
-              <p>{invoice.clientName}</p>
+              <p>{currentInvoice.clientName}</p>
             </div>
             <address>
-              {invoice.clientAddress.street}
+              {currentInvoice.clientAddress.street}
               <br />
-              {invoice.clientAddress.city}
+              {currentInvoice.clientAddress.city}
               <br />
-              {invoice.clientAddress.postCode}
+              {currentInvoice.clientAddress.postCode}
               <br />
-              {invoice.clientAddress.country}
+              {currentInvoice.clientAddress.country}
             </address>
           </div>
           <div className="client-email">
             <h2>Sent to</h2>
-            <p>{invoice.clientEmail}</p>
+            <p>{currentInvoice.clientEmail}</p>
           </div>
         </div>
         <table>
@@ -74,16 +87,20 @@ const InvoiceDetailPage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{invoice.items.name}</td>
-              <td>{invoice.items.quantity}</td>
-              <td>&euro;{invoice.items.price}</td>
-              <td>&euro;{invoice.items.total}</td>
-            </tr>
+            {currentInvoice.items.map((item) => (
+              <tr key={currentInvoice.id + item.name}>
+                <td>{item.name}</td>
+                <td>{item.quantity}</td>
+                <td>&euro;{item.price}</td>
+                <td>&euro;{item.total}</td>
+              </tr>
+            ))}
           </tbody>
           <tfoot>
-            <td>Amount Due</td>
-            <td colSpan={3}>&euro;{invoice.total}</td>
+            <tr>
+              <td>Amount Due</td>
+              <td colSpan={3}>&euro;{currentInvoice.total}</td>
+            </tr>
           </tfoot>
         </table>
       </section>
