@@ -6,12 +6,12 @@ import { Invoice } from "../../types";
 const InvoiceDetailPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
   const { id: currentInvoiceId } = useParams();
-  const currentInvoice: Invoice | undefined = invoices.find(
+  const currentInvoice = invoices.find(
     (invoice) => invoice.id === currentInvoiceId
   );
 
   if (!currentInvoice) {
-    return <p>This invoice does not exist</p>;
+    return <p>Loading invoice {currentInvoiceId}...</p>;
   }
 
   return (

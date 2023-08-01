@@ -1,15 +1,9 @@
-import { FC, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
-import { fetchAllInvoices } from "./invoicesApi";
+import { FC } from "react";
+import { useAppSelector } from "../../app/redux-hooks";
 import InvoiceItem from "./InvoiceItem";
 
 const InvoicesList: FC = () => {
-  const dispatch = useAppDispatch();
   const { invoices } = useAppSelector((state) => state.invoices);
-
-  useEffect(() => {
-    dispatch(fetchAllInvoices());
-  }, [dispatch]);
 
   return (
     <section>

@@ -24,7 +24,7 @@ const InvoicesPage = () => {
           <span>New Invoice</span>
         </button>
       </div>
-      <InvoicesList />
+      {!invoices.length ? <p>Loading...</p> : <InvoicesList />}
     </>
   );
 };
