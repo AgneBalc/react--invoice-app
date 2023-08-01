@@ -1,36 +1,23 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import InvoicesList from "../invoices/InvoicesList";
-import { Invoice } from "../../types";
 import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
+import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
+import { fetchAllInvoices } from "../invoices/invoicesApi";
+import { useSelector } from "react-redux";
 
-const InvoicesPage = () => {
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
+const InvoicesPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const { invoices } = useAppSelector((state) => state.invoices);
 
   useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await fetch(
-          "https://react-http-35b06-default-rtdb.firebaseio.com/.json"
-        );
-
-        if (!response.ok) {
-          throw new Error("Could not fetch the data.");
-        }
-
-        const resData = await response.json();
-        setInvoices(resData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchInvoices();
-  }, []);
+    dispatch(fetchAllInvoices());
+  }, [dispatch]);
 
   return (
     <>
       <div className="heading">
         <h1>Invoices</h1>
-        <p>Invoices</p>
+        <p>{invoices.length} Invoices</p>
         <div>
           <label htmlFor="">Filter by status</label>
           <select name="" id="">
