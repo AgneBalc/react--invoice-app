@@ -1,21 +1,22 @@
-import { Link } from "react-router-dom";
-import { Invoice } from "../../types";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
+import { fetchAllInvoices } from "./invoicesApi";
+import InvoiceItem from "./InvoiceItem";
 
-type InvoiceProps = { invoice: Invoice };
+const InvoicesList: FC = () => {
+  const dispatch = useAppDispatch();
+  const { invoices } = useAppSelector((state) => state.invoices);
 
-const InvoicesList = ({ invoice }: InvoiceProps) => {
+  useEffect(() => {
+    dispatch(fetchAllInvoices());
+  }, [dispatch]);
+
   return (
-    <ul>
-      <li>
-        <Link to={invoice.id}>
-          <h3>{invoice.id}</h3>
-          <span>{invoice.paymentDue}</span>
-          <span>{invoice.clientName}</span>
-          <span>&euro;{invoice.total}</span>
-          <div>{invoice.status}</div>
-        </Link>
-      </li>
-    </ul>
+    <section>
+      {invoices.map((invoice) => (
+        <InvoiceItem key={invoice.id} invoice={invoice} />
+      ))}
+    </section>
   );
 };
 

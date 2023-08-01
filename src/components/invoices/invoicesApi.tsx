@@ -4,15 +4,6 @@ import axios from "axios";
 
 const API_URL: string = "https://react-http-35b06-default-rtdb.firebaseio.com/";
 
-// export const fetchInvoices = async () => {
-//   const response = await fetch(API_URL);
-//   if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`);
-//   }
-//   const resData = await response.json();
-//   return resData;
-// };
-
 export const fetchAllInvoices = createAsyncThunk(
   "invoices/fetchAllInvoices",
   async (data, thunkApi) => {

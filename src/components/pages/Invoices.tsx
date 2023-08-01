@@ -1,17 +1,9 @@
-import { FC, useEffect } from "react";
 import InvoicesList from "../invoices/InvoicesList";
 import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
-import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
-import { fetchAllInvoices } from "../invoices/invoicesApi";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/redux-hooks";
 
-const InvoicesPage: FC = () => {
-  const dispatch = useAppDispatch();
+const InvoicesPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
-
-  useEffect(() => {
-    dispatch(fetchAllInvoices());
-  }, [dispatch]);
 
   return (
     <>
@@ -32,9 +24,7 @@ const InvoicesPage: FC = () => {
           <span>New Invoice</span>
         </button>
       </div>
-      {invoices.map((invoice) => (
-        <InvoicesList key={invoice.id} invoice={invoice} />
-      ))}
+      <InvoicesList />
     </>
   );
 };
