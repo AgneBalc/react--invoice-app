@@ -20,9 +20,11 @@ const invoicesSlice = createSlice({
   name: "invoices",
   initialState,
   reducers: {
-    // addInvoice(state, action: PayloadAction<Invoice>) {},
-    // editInvoice(state, action: PayloadAction<string>) {},
-    // removeInvoice(state, action: PayloadAction<string>) {},
+    addInvoice(state, action: PayloadAction<Invoice>) {
+      state.invoices.unshift(action.payload);
+    },
+    editInvoice(state, action: PayloadAction<string>) {},
+    removeInvoice(state, action: PayloadAction<string>) {},
   },
   extraReducers: (builder) => {
     builder
@@ -45,6 +47,6 @@ const invoicesSlice = createSlice({
   },
 });
 
-// export const { addInvoice, editInvoice, removeInvoice } = invoicesSlice.actions;
+export const { addInvoice, editInvoice, removeInvoice } = invoicesSlice.actions;
 
 export default invoicesSlice.reducer;
