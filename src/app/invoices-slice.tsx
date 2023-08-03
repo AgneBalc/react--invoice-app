@@ -1,19 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Invoice, InvoiceStatus } from "../types";
-import { fetchAllInvoices } from "../components/invoices/invoicesApi";
+import { createInvoice, getInvoices } from "../components/invoices/invoicesApi";
 
 interface InvoicesInicialState {
   invoices: Invoice[];
   status: InvoiceStatus;
-  loading: boolean;
-  error: string | undefined;
 }
 
 const initialState: InvoicesInicialState = {
   invoices: [],
   status: "draft",
-  loading: false,
-  error: undefined,
 };
 
 const invoicesSlice = createSlice({
@@ -28,22 +24,14 @@ const invoicesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllInvoices.pending, (state) => {
-        state.loading = true;
+      .addCase(getInvoices.fulfilled, (state, action) => {
+        // console.log(action.payload);
+        state.invoices = action.payload;
       })
-      .addCase(
-        fetchAllInvoices.fulfilled,
-        (state, action: PayloadAction<Invoice[]>) => {
-          state.loading = false;
-          state.invoices = action.payload;
-        }
-      )
-      .addCase(
-        fetchAllInvoices.rejected,
-        (state, action: PayloadAction<any>) => {
-          state.error = action.payload;
-        }
-      );
+      .addCase(createInvoice.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.invoices.unshift(action.payload);
+      });
   },
 });
 

@@ -4,35 +4,29 @@ import axios from "axios";
 
 const API_URL: string = "https://react-http-35b06-default-rtdb.firebaseio.com/";
 
-export const fetchAllInvoices = createAsyncThunk(
-  "invoices/fetchAllInvoices",
-  async (data, thunkApi) => {
+export const getInvoices = createAsyncThunk(
+  "invoices/getInvoices",
+  async () => {
     try {
-      const response = await axios.get<Invoice[]>(`${API_URL}.json`);
+      const response = await axios.get(`${API_URL}.json`);
       return response.data;
     } catch (error: any) {
-      const message = error.message;
-      return thunkApi.rejectWithValue(message);
+      return error.response.data.message;
     }
   }
 );
 
-export const fetchInvoice = async (id: string) => {
-  const response = await fetch(`${API_URL}/${id}`);
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+export const createInvoice = createAsyncThunk(
+  "invoices/createInvoice",
+  async (invoice: Invoice) => {
+    try {
+      const response = await axios.post(`${API_URL}.json`, invoice);
+      return response.data;
+    } catch (error: any) {
+      return error.response.data.message;
+    }
   }
-  const resData = await response.json();
-  return resData;
-};
-
-export const postInvoice = async (invoice: Invoice) => {
-  await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(invoice),
-  });
-};
+);
 
 export const patchInvoice = async (invoice: Invoice) => {
   await fetch(`${API_URL}/${invoice.id}`, {

@@ -4,7 +4,6 @@ import InvoiceItem from "./InvoiceItem";
 
 const InvoicesList: FC = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
-
   return (
     <section>
       {invoices.map((invoice) => (

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const InvoicesPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
-
   return (
     <>
       <div className="heading">

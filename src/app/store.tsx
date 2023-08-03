@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import InvoiceReducer from "./invoices-slice";
-import { fetchAllInvoices } from "../components/invoices/invoicesApi";
+import { getInvoices } from "../components/invoices/invoicesApi";
 
 const store = configureStore({
   reducer: {
@@ -8,7 +8,7 @@ const store = configureStore({
   },
 });
 
-store.dispatch(fetchAllInvoices());
+store.dispatch(getInvoices());
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

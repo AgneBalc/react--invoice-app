@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../app/redux-hooks";
 
-const { invoices } = useAppSelector((state) => state.invoices);
+// const { invoices } = useAppSelector((state) => state.invoices);
 
 export const formatDate = (date: string) => {
   const dateObj = new Date(date);
@@ -30,9 +30,9 @@ export const createId = (): string => {
     String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
     Math.floor(1000 + Math.random() * 9000);
 
-  const existingId = invoices.find((invoice) => invoice.id === id);
+  // const existingId = invoices.find((invoice) => invoice.id === id);
 
-  if (existingId) return createId();
+  // if (existingId) return createId();
 
   return id;
 };
