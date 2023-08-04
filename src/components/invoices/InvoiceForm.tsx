@@ -2,15 +2,15 @@ import { useFormik } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 import { FormEvent } from "react";
 import { Invoice } from "../../types";
-import { createId, formatDate } from "../utils/utils";
-import { useAppDispatch } from "../../app/redux-hooks";
+import { createId, formatDate, getPaymentDueDate } from "../utils/utils";
+import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
 import { createInvoice } from "./invoicesApi";
 import { useNavigate } from "react-router-dom";
 
 const initialValues: Invoice = {
   id: "",
-  createdAt: new Date().toJSON(),
-  paymentDue: "",
+  createdAt: new Date().toDateString(),
+  paymentDue: getPaymentDueDate(new Date().toDateString(), 1),
   description: "",
   paymentTerms: 1,
   clientName: "",
@@ -35,11 +35,12 @@ const initialValues: Invoice = {
 const InvoiceForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { invoices } = useAppSelector((state) => state.invoices);
 
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      dispatch(createInvoice({ ...values, id: createId() }));
+      dispatch(createInvoice({ ...values, id: createId(invoices) }));
       navigate("/");
     },
   });

@@ -25,12 +25,10 @@ const invoicesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getInvoices.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.invoices = action.payload;
       })
       .addCase(createInvoice.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.invoices.unshift(action.payload);
+        state.invoices.push(action.payload);
       });
   },
 });
