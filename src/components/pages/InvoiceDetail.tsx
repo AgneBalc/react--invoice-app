@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { Invoice } from "../../types";
+import { formatDate } from "../utils/utils";
 
 const InvoiceDetailPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
@@ -50,11 +51,11 @@ const InvoiceDetailPage = () => {
           <div className="invoice-dates">
             <div className="created-date">
               <h2>Invoice date</h2>
-              <p>{currentInvoice.createdAt}</p>
+              <p>{formatDate(currentInvoice.createdAt)}</p>
             </div>
             <div className="payment-due">
               <h2>Payment Due</h2>
-              <p>{currentInvoice.paymentDue}</p>
+              <p>{formatDate(currentInvoice.paymentDue)}</p>
             </div>
           </div>
           <div className="client-address">

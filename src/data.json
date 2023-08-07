@@ -228,54 +228,6 @@
         }
       ],
       "total": 3102.04
-    },
-    {
-      "id": "VF9827",
-      "createdAt": "Fri Aug 04 2023",
-      "paymentDue": "Sat Aug 05 2023",
-      "description": "",
-      "paymentTerms": 1,
-      "clientName": "",
-      "clientEmail": "",
-      "status": "draft",
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [],
-      "total": 0
-    },
-    {
-      "id": "GA3287",
-      "createdAt": "Fri Aug 04 2023",
-      "paymentDue": "Sat Aug 05 2023",
-      "description": "",
-      "paymentTerms": 1,
-      "clientName": "",
-      "clientEmail": "",
-      "status": "draft",
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [],
-      "total": 0
     }
   ]
 }

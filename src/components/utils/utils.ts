@@ -1,31 +1,8 @@
+import { format } from "date-fns";
 import { Invoice } from "../../types";
 
 export const formatDate = (date: string) => {
-  const dateObj = new Date(date);
-  const months: string[] = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const day = dateObj.getDate();
-  const month = months[dateObj.getMonth()];
-  const year = dateObj.getFullYear();
-  return `${day} ${month} ${year}`;
-};
-
-export const getPaymentDueDate = (date: string, days: number) => {
-  let dateObj = new Date(date);
-  dateObj.setDate(dateObj.getDate() + days);
-  return dateObj.toDateString();
+  return format(new Date(date), "dd MMM yyyy");
 };
 
 export const createId = (invoices: Invoice[]): string => {

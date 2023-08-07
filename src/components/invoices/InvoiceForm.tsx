@@ -2,15 +2,16 @@ import { useFormik } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 import { FormEvent } from "react";
 import { Invoice } from "../../types";
-import { createId, formatDate, getPaymentDueDate } from "../utils/utils";
+import { createId, formatDate, paymentTermsOptions } from "../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
 import { createInvoice } from "./invoicesApi";
 import { useNavigate } from "react-router-dom";
+import { format, addDays } from "date-fns";
 
 const initialValues: Invoice = {
   id: "",
-  createdAt: new Date().toDateString(),
-  paymentDue: getPaymentDueDate(new Date().toDateString(), 1),
+  createdAt: format(Date.now(), "yyyy-MM-dd"),
+  paymentDue: "",
   description: "",
   paymentTerms: 1,
   clientName: "",
@@ -40,7 +41,20 @@ const InvoiceForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      dispatch(createInvoice({ ...values, id: createId(invoices) }));
+      if (typeof values.paymentTerms === "string") {
+        values.paymentTerms = parseInt(values.paymentTerms, 10);
+      }
+      const paymentDue = format(
+        addDays(new Date(values.createdAt), values.paymentTerms),
+        "yyyy-MM-dd"
+      );
+      dispatch(
+        createInvoice({
+          ...values,
+          id: createId(invoices),
+          paymentDue: paymentDue,
+        })
+      );
       navigate("/");
     },
   });
@@ -57,36 +71,36 @@ const InvoiceForm = () => {
       <fieldset>
         <legend>Bill From</legend>
         <div>
-          <label htmlFor="sender-street">Street Address</label>
+          <label htmlFor="senderAddress.street">Street Address</label>
           <input
             type="text"
-            id="sender-street"
-            {...formik.getFieldProps("sender-street")}
+            id="senderAddress.street"
+            {...formik.getFieldProps("senderAddress.street")}
           />
         </div>
         <div>
           <div>
-            <label htmlFor="sender-city">City</label>
+            <label htmlFor="senderAddress.city">City</label>
             <input
               type="text"
-              id="sender-city"
-              {...formik.getFieldProps("sender-city")}
+              id="senderAddress.city"
+              {...formik.getFieldProps("senderAddress.city")}
             />
           </div>
           <div>
-            <label htmlFor="sender-postal">Postal Code</label>
+            <label htmlFor="senderAddress.postCode">Postal Code</label>
             <input
               type="text"
-              id="sender-postal"
-              {...formik.getFieldProps("sender-postal")}
+              id="senderAddress.postCode"
+              {...formik.getFieldProps("senderAddress.postCode")}
             />
           </div>
           <div>
-            <label htmlFor="sender-country">Country</label>
+            <label htmlFor="senderAddress.country">Country</label>
             <input
               type="text"
-              id="sender-country"
-              {...formik.getFieldProps("sender-country")}
+              id="senderAddress.country"
+              {...formik.getFieldProps("senderAddress.country")}
             />
           </div>
         </div>
@@ -94,53 +108,53 @@ const InvoiceForm = () => {
       <fieldset>
         <legend>Bill To</legend>
         <div>
-          <label htmlFor="client-name">Client's Name</label>
+          <label htmlFor="clientName">Client's Name</label>
           <input
             type="text"
-            id="client-name"
-            {...formik.getFieldProps("client-name")}
+            id="clientName"
+            {...formik.getFieldProps("clientName")}
           />
         </div>
         <div>
-          <label htmlFor="client-email">Client's Email</label>
+          <label htmlFor="clientEmail">Client's Email</label>
           <input
             type="email"
-            id="client-email"
+            id="clientEmail"
             placeholder="e.g. email@example.com"
-            {...formik.getFieldProps("client-email")}
+            {...formik.getFieldProps("clientEmail")}
           />
         </div>
         <div>
-          <label htmlFor="client-street">Street Address</label>
+          <label htmlFor="clientAddress.street">Street Address</label>
           <input
             type="text"
-            id="client-street"
-            {...formik.getFieldProps("client-street")}
+            id="clientAddress.street"
+            {...formik.getFieldProps("clientAddress.street")}
           />
         </div>
         <div>
           <div>
-            <label htmlFor="client-city">City</label>
+            <label htmlFor="clientAddress.city">City</label>
             <input
               type="text"
-              id="client-city"
-              {...formik.getFieldProps("client-city")}
+              id="clientAddress.city"
+              {...formik.getFieldProps("clientAddress.city")}
             />
           </div>
           <div>
-            <label htmlFor="client-postal">Postal Code</label>
+            <label htmlFor="clientAddress.postCode">Postal Code</label>
             <input
               type="text"
-              id="client-postal"
-              {...formik.getFieldProps("client-postal")}
+              id="clientAddress.postCode"
+              {...formik.getFieldProps("clientAddress.postCode")}
             />
           </div>
           <div>
-            <label htmlFor="client-country">Country</label>
+            <label htmlFor="clientAddress.country">Country</label>
             <input
               type="text"
-              id="client-country"
-              {...formik.getFieldProps("client-country")}
+              id="clientAddress.country"
+              {...formik.getFieldProps("clientAddress.country")}
             />
           </div>
         </div>
@@ -148,20 +162,22 @@ const InvoiceForm = () => {
       <div>
         <div>
           <div>
-            <label htmlFor="created-date">Invoice Date</label>
+            <label htmlFor="createdAt">Invoice Date</label>
             <input
               type="date"
-              id="created-date"
-              {...formik.getFieldProps("created-date")}
+              id="createdAt"
+              {...formik.getFieldProps("createdAt")}
             />
           </div>
           <div>
-            <label htmlFor="payment-date">Payment Terms</label>
-            <input
-              type="date"
-              id="payment-date"
-              {...formik.getFieldProps("payment-date")}
-            />
+            <label htmlFor="paymentTerms">Payment Terms</label>
+            <select id="paymentTerms" {...formik.getFieldProps("paymentTerms")}>
+              {paymentTermsOptions.map((option) => (
+                <option value={option.value} key={option.value}>
+                  {option.text}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div>
@@ -176,7 +192,7 @@ const InvoiceForm = () => {
       </div>
       <div>
         <h3>Items List</h3>
-        <div>
+        {/* <div>
           <div className="item-name">
             <label htmlFor="item-name">Item Name</label>
             <input
@@ -215,7 +231,7 @@ const InvoiceForm = () => {
               {...formik.getFieldProps("item-total")}
             />
           </div>
-        </div>
+        </div> */}
         <button type="button">
           <PlusIcon />
           <span>Add New Item</span>
