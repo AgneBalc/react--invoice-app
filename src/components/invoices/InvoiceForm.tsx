@@ -53,19 +53,31 @@ const InvoiceForm = () => {
           ...values,
           id: createId(invoices),
           paymentDue: paymentDue,
+          status: "pending",
         })
       );
       navigate("/");
     },
   });
 
-  const handleSaveAsDraft = () => {
-    // const createdAt = formatDate(values.createdAt);
-    // const id = createId();
+  const handleSaveAsDraft = (values: Invoice) => {
+    if (typeof values.paymentTerms === "string") {
+      values.paymentTerms = parseInt(values.paymentTerms, 10);
+    }
+    const paymentDue = format(
+      addDays(new Date(values.createdAt), values.paymentTerms),
+      "yyyy-MM-dd"
+    );
+    dispatch(
+      createInvoice({
+        ...values,
+        id: createId(invoices),
+        paymentDue: paymentDue,
+      })
+    );
+    navigate("/");
   };
-  // const handleSaveAndSend = (e: FormEvent) => {
-  //   e.preventDefault();
-  // };
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <fieldset>
@@ -239,7 +251,9 @@ const InvoiceForm = () => {
       </div>
       <div className="form-buttons">
         <button type="button">Discard</button>
-        <button type="button">Save as Draft</button>
+        <button type="button" onClick={() => handleSaveAsDraft(formik.values)}>
+          Save as Draft
+        </button>
         <button type="submit">Save & Send</button>
       </div>
     </form>

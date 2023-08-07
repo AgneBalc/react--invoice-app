@@ -228,6 +228,54 @@
         }
       ],
       "total": 3102.04
+    },
+    {
+      "id": "YP2498",
+      "createdAt": "2023-08-07",
+      "paymentDue": "2023-08-21",
+      "description": "",
+      "paymentTerms": 14,
+      "clientName": "",
+      "clientEmail": "",
+      "status": "draft",
+      "senderAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "clientAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "items": [],
+      "total": 0
+    },
+    {
+      "id": "OQ4005",
+      "createdAt": "2023-08-07",
+      "paymentDue": "2023-08-21",
+      "description": "Ancient country",
+      "paymentTerms": 14,
+      "clientName": "",
+      "clientEmail": "",
+      "status": "draft",
+      "senderAddress": {
+        "street": "R. Jankausko 15",
+        "city": "Vilnius",
+        "postCode": "04315",
+        "country": "Lithuania"
+      },
+      "clientAddress": {
+        "street": "R. Jankausko 15",
+        "city": "Vilnius",
+        "postCode": "04315",
+        "country": "Lithuania"
+      },
+      "items": [],
+      "total": 0
     }
   ]
 }
