@@ -1,8 +1,15 @@
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import { Invoice } from "../../types";
 
 export const formatDate = (date: string) => {
   return format(new Date(date), "dd MMM yyyy");
+};
+
+export const getPaymentDueDate = (date: string, amount: number | string) => {
+  if (typeof amount === "string") {
+    amount = parseInt(amount, 10);
+  }
+  return format(addDays(new Date(date), amount), "yyyy-MM-dd");
 };
 
 export const createId = (invoices: Invoice[]): string => {

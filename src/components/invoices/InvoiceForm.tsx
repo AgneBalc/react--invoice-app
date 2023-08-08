@@ -1,12 +1,17 @@
 import { useFormik } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
-import { FormEvent } from "react";
-import { Invoice } from "../../types";
-import { createId, formatDate, paymentTermsOptions } from "../utils/utils";
+import { Invoice, Item } from "../../types";
+import {
+  createId,
+  getPaymentDueDate,
+  paymentTermsOptions,
+} from "../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
 import { createInvoice } from "./invoicesApi";
 import { useNavigate } from "react-router-dom";
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
+import FormItems from "./FormItems";
+import { useState } from "react";
 
 const initialValues: Invoice = {
   id: "",
@@ -34,25 +39,25 @@ const initialValues: Invoice = {
 };
 
 const InvoiceForm = () => {
+  const [itemsList, setItemsList] = useState<Item[]>([]);
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { invoices } = useAppSelector((state) => state.invoices);
 
+  const handleAddItem = () => {
+    const newItem: Item = { name: "New Item", quantity: 1, total: 0, price: 0 };
+    setItemsList((prevItems) => prevItems.concat(newItem));
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      if (typeof values.paymentTerms === "string") {
-        values.paymentTerms = parseInt(values.paymentTerms, 10);
-      }
-      const paymentDue = format(
-        addDays(new Date(values.createdAt), values.paymentTerms),
-        "yyyy-MM-dd"
-      );
       dispatch(
         createInvoice({
           ...values,
           id: createId(invoices),
-          paymentDue: paymentDue,
+          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
           status: "pending",
         })
       );
@@ -61,18 +66,12 @@ const InvoiceForm = () => {
   });
 
   const handleSaveAsDraft = (values: Invoice) => {
-    if (typeof values.paymentTerms === "string") {
-      values.paymentTerms = parseInt(values.paymentTerms, 10);
-    }
-    const paymentDue = format(
-      addDays(new Date(values.createdAt), values.paymentTerms),
-      "yyyy-MM-dd"
-    );
+    console.log(values);
     dispatch(
       createInvoice({
         ...values,
         id: createId(invoices),
-        paymentDue: paymentDue,
+        paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
       })
     );
     navigate("/");
@@ -204,47 +203,11 @@ const InvoiceForm = () => {
       </div>
       <div>
         <h3>Items List</h3>
-        {/* <div>
-          <div className="item-name">
-            <label htmlFor="item-name">Item Name</label>
-            <input
-              type="text"
-              id="item-name"
-              placeholder="Item name"
-              {...formik.getFieldProps("item-name")}
-            />
-          </div>
-          <div className="item-qty">
-            <label htmlFor="item-qty">Qty</label>
-            <input
-              type="number"
-              id="item-qty"
-              min="0"
-              step="1"
-              {...formik.getFieldProps("item-qty")}
-            />
-          </div>
-          <div className="item-price">
-            <label htmlFor="item-price">Price</label>
-            <input
-              type="number"
-              id="item-price"
-              min="0"
-              step="0.01"
-              {...formik.getFieldProps("item-price")}
-            />
-          </div>
-          <div className="item-total">
-            <label htmlFor="item-total">Total</label>
-            <input
-              type="number"
-              id="item-total"
-              readOnly={true}
-              {...formik.getFieldProps("item-total")}
-            />
-          </div>
-        </div> */}
-        <button type="button">
+        {itemsList.length > 0 &&
+          itemsList.map((item, index) => (
+            <FormItems key={index} item={item} index={index} formik={formik} />
+          ))}
+        <button type="button" onClick={() => handleAddItem()}>
           <PlusIcon />
           <span>Add New Item</span>
         </button>

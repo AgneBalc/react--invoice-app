@@ -25,7 +25,7 @@ export interface Invoice {
 
 export type InvoiceStatus = "paid" | "pending" | "draft";
 
-type Item = {
+export type Item = {
   name: string;
   quantity: number;
   price: number;
