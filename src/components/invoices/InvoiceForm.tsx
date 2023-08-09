@@ -249,7 +249,9 @@ const InvoiceForm = () => {
             <FormItems items={formik.values.items} formik={formik} />
           </div>
           <div className="form-buttons">
-            <button type="button">Discard</button>
+            <button type="button" onClick={() => navigate("/")}>
+              Discard
+            </button>
             <button
               type="button"
               onClick={() => handleSaveAsDraft(formik.values)}

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { Invoice } from "../../types";
@@ -7,6 +7,8 @@ import { formatDate } from "../utils/utils";
 const InvoiceDetailPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
   const { id: currentInvoiceId } = useParams();
+  const navigate = useNavigate();
+
   const currentInvoice = invoices.find(
     (invoice) => invoice.id === currentInvoiceId
   );
@@ -17,7 +19,7 @@ const InvoiceDetailPage = () => {
 
   return (
     <>
-      <button>
+      <button onClick={() => navigate("/")}>
         <IconArrowLeft />
         <span>Go back</span>
       </button>

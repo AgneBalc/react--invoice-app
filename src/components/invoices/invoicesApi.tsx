@@ -28,13 +28,17 @@ export const createInvoice = createAsyncThunk(
   }
 );
 
-export const patchInvoice = async (invoice: Invoice) => {
-  await fetch(`${API_URL}/${invoice.id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(invoice),
-  });
-};
+export const editInvoice = createAsyncThunk(
+  "invoices/editInvoice",
+  async (invoice: Invoice) => {
+    try {
+      const response = await axios.put(`${API_URL}/${invoice.id}`, invoice);
+      return response.data;
+    } catch (error: any) {
+      return error.response.data.message;
+    }
+  }
+);
 
 export const deleteInvoice = async (id: string) => {
   await fetch(`${API_URL}/${id}`, {

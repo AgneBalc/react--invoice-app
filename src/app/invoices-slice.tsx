@@ -1,6 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Invoice, InvoiceStatus } from "../types";
-import { createInvoice, getInvoices } from "../components/invoices/invoicesApi";
+import {
+  createInvoice,
+  editInvoice,
+  getInvoices,
+} from "../components/invoices/invoicesApi";
 
 interface InvoicesInicialState {
   invoices: Invoice[];
@@ -21,6 +25,12 @@ const invoicesSlice = createSlice({
       })
       .addCase(createInvoice.fulfilled, (state, action) => {
         state.invoices.push(action.payload);
+      })
+      .addCase(editInvoice.fulfilled, (state, action) => {
+        const index = state.invoices.findIndex(
+          (invoice) => invoice.id === action.payload.id
+        );
+        state.invoices[index] = { ...state.invoices[index], ...action.payload };
       });
   },
 });
