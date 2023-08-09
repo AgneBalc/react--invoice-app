@@ -10,6 +10,7 @@ import { createInvoice } from "./invoicesApi";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormItems from "./FormItems";
+import { invoiceSchema } from "../utils/validation";
 
 const initialValues: Invoice = {
   id: "",
@@ -68,6 +69,7 @@ const InvoiceForm = () => {
   return (
     <Formik
       initialValues={initialValues}
+      validationSchema={invoiceSchema}
       onSubmit={(values) => {
         handleSubmit(values);
       }}
@@ -83,6 +85,10 @@ const InvoiceForm = () => {
                 id="senderAddress.street"
                 {...formik.getFieldProps("senderAddress.street")}
               />
+              {formik.errors.senderAddress?.street &&
+                formik.submitCount > 0 && (
+                  <p>{formik.errors.senderAddress.street}</p>
+                )}
             </div>
             <div>
               <div>
@@ -92,6 +98,10 @@ const InvoiceForm = () => {
                   id="senderAddress.city"
                   {...formik.getFieldProps("senderAddress.city")}
                 />
+                {formik.errors.senderAddress?.city &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.senderAddress.city}</p>
+                  )}
               </div>
               <div>
                 <label htmlFor="senderAddress.postCode">Postal Code</label>
@@ -100,6 +110,10 @@ const InvoiceForm = () => {
                   id="senderAddress.postCode"
                   {...formik.getFieldProps("senderAddress.postCode")}
                 />
+                {formik.errors.senderAddress?.postCode &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.senderAddress.postCode}</p>
+                  )}
               </div>
               <div>
                 <label htmlFor="senderAddress.country">Country</label>
@@ -108,6 +122,10 @@ const InvoiceForm = () => {
                   id="senderAddress.country"
                   {...formik.getFieldProps("senderAddress.country")}
                 />
+                {formik.errors.senderAddress?.country &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.senderAddress.country}</p>
+                  )}
               </div>
             </div>
           </fieldset>
@@ -120,6 +138,9 @@ const InvoiceForm = () => {
                 id="clientName"
                 {...formik.getFieldProps("clientName")}
               />
+              {formik.errors.clientName && formik.submitCount > 0 && (
+                <p>{formik.errors.clientName}</p>
+              )}
             </div>
             <div>
               <label htmlFor="clientEmail">Client's Email</label>
@@ -129,6 +150,9 @@ const InvoiceForm = () => {
                 placeholder="e.g. email@example.com"
                 {...formik.getFieldProps("clientEmail")}
               />
+              {formik.errors.clientEmail && formik.submitCount > 0 && (
+                <p>{formik.errors.clientEmail}</p>
+              )}
             </div>
             <div>
               <label htmlFor="clientAddress.street">Street Address</label>
@@ -137,6 +161,10 @@ const InvoiceForm = () => {
                 id="clientAddress.street"
                 {...formik.getFieldProps("clientAddress.street")}
               />
+              {formik.errors.clientAddress?.street &&
+                formik.submitCount > 0 && (
+                  <p>{formik.errors.clientAddress.street}</p>
+                )}
             </div>
             <div>
               <div>
@@ -146,6 +174,10 @@ const InvoiceForm = () => {
                   id="clientAddress.city"
                   {...formik.getFieldProps("clientAddress.city")}
                 />
+                {formik.errors.clientAddress?.city &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.clientAddress.city}</p>
+                  )}
               </div>
               <div>
                 <label htmlFor="clientAddress.postCode">Postal Code</label>
@@ -154,6 +186,10 @@ const InvoiceForm = () => {
                   id="clientAddress.postCode"
                   {...formik.getFieldProps("clientAddress.postCode")}
                 />
+                {formik.errors.clientAddress?.postCode &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.clientAddress.postCode}</p>
+                  )}
               </div>
               <div>
                 <label htmlFor="clientAddress.country">Country</label>
@@ -162,6 +198,10 @@ const InvoiceForm = () => {
                   id="clientAddress.country"
                   {...formik.getFieldProps("clientAddress.country")}
                 />
+                {formik.errors.clientAddress?.country &&
+                  formik.submitCount > 0 && (
+                    <p>{formik.errors.clientAddress.country}</p>
+                  )}
               </div>
             </div>
           </fieldset>
@@ -197,6 +237,9 @@ const InvoiceForm = () => {
                 placeholder="e.g. Graphic Design Service"
                 {...formik.getFieldProps("description")}
               />
+              {formik.errors.description && formik.submitCount > 0 && (
+                <p>{formik.errors.description}</p>
+              )}
             </div>
           </div>
           <div>

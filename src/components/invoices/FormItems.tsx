@@ -1,5 +1,5 @@
 import { Invoice, Item } from "../../types";
-import { FieldArray, FormikProps } from "formik";
+import { FieldArray, FormikProps, getIn, FormikErrors } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 
 interface FormItemsProps {
@@ -8,9 +8,17 @@ interface FormItemsProps {
 }
 
 const FormItems = ({ items, formik }: FormItemsProps) => {
+  const hasErrorForField = (index: number, fieldName: string) => {
+    const itemErrors = formik.errors.items as FormikErrors<Item>[];
+    return Boolean(getIn(itemErrors, `${index}.${fieldName}`));
+  };
+
   return (
     <div>
       <h3>Items List</h3>
+      {typeof formik.errors.items === "string" && formik.submitCount > 0 && (
+        <p>{formik.errors.items}</p>
+      )}
       <FieldArray
         name="items"
         render={(arrayHelpers) => (
@@ -25,26 +33,36 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
                       id={`item-name-${index}`}
                       {...formik.getFieldProps(`items[${index}].name`)}
                     />
+                    {hasErrorForField(index, "name") &&
+                    formik.submitCount > 0 ? (
+                      <p>{getIn(formik.errors, `items[${index}].name`)}</p>
+                    ) : null}
                   </div>
                   <div className="item-qty">
                     <label htmlFor={`item-quantity-${index}`}>Qty</label>
                     <input
                       type="number"
                       id={`item-quantity-${index}`}
-                      min="0"
                       step="1"
                       {...formik.getFieldProps(`items[${index}].quantity`)}
                     />
+                    {hasErrorForField(index, "quantity") &&
+                    formik.submitCount > 0 ? (
+                      <p>{getIn(formik.errors, `items[${index}].quantity`)}</p>
+                    ) : null}
                   </div>
                   <div className="item-price">
                     <label htmlFor={`item-price-${index}`}>Price</label>
                     <input
                       type="number"
                       id={`item-price-${index}`}
-                      min="0"
                       step="0.01"
                       {...formik.getFieldProps(`items[${index}].price`)}
                     />
+                    {hasErrorForField(index, "price") &&
+                    formik.submitCount > 0 ? (
+                      <p>{getIn(formik.errors, `items[${index}].price`)}</p>
+                    ) : null}
                   </div>
                   <div className="item-total">
                     <label htmlFor={`item-total-${index}`}>Total</label>
