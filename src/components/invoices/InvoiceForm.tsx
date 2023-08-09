@@ -1,8 +1,9 @@
-import { Form, Formik } from "formik";
-import { Invoice } from "../../types";
+import { Form, Formik, FormikErrors } from "formik";
+import { Invoice, Item } from "../../types";
 import {
   createId,
   getPaymentDueDate,
+  getTotal,
   paymentTermsOptions,
 } from "../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
@@ -49,6 +50,7 @@ const InvoiceForm = () => {
         id: createId(invoices),
         paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
         status: "pending",
+        total: getTotal(values.items),
       })
     );
     navigate("/");
@@ -61,6 +63,7 @@ const InvoiceForm = () => {
         ...values,
         id: createId(invoices),
         paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+        total: getTotal(values.items),
       })
     );
     navigate("/");
@@ -250,6 +253,13 @@ const InvoiceForm = () => {
             <button
               type="button"
               onClick={() => handleSaveAsDraft(formik.values)}
+              disabled={
+                typeof formik.errors.items === "object" &&
+                (formik.errors.items as FormikErrors<Item>[]).some(
+                  (item: FormikErrors<Item>) =>
+                    typeof item === "object" && (item.quantity || item.price)
+                )
+              }
             >
               Save as Draft
             </button>

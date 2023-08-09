@@ -46,8 +46,7 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
                       step="1"
                       {...formik.getFieldProps(`items[${index}].quantity`)}
                     />
-                    {hasErrorForField(index, "quantity") &&
-                    formik.submitCount > 0 ? (
+                    {hasErrorForField(index, "quantity") ? (
                       <p>{getIn(formik.errors, `items[${index}].quantity`)}</p>
                     ) : null}
                   </div>
@@ -59,19 +58,15 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
                       step="0.01"
                       {...formik.getFieldProps(`items[${index}].price`)}
                     />
-                    {hasErrorForField(index, "price") &&
-                    formik.submitCount > 0 ? (
+                    {hasErrorForField(index, "price") ? (
                       <p>{getIn(formik.errors, `items[${index}].price`)}</p>
                     ) : null}
                   </div>
                   <div className="item-total">
-                    <label htmlFor={`item-total-${index}`}>Total</label>
-                    <input
-                      type="number"
-                      id={`item-total-${index}`}
-                      readOnly={true}
-                      {...formik.getFieldProps(`items[${index}].total`)}
-                    />
+                    <p>Total</p>
+                    <span>
+                      &euro;{items[index].price * items[index].quantity}
+                    </span>
                   </div>
                 </div>
               ))}

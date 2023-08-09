@@ -1,5 +1,5 @@
 import { format, addDays } from "date-fns";
-import { Invoice } from "../../types";
+import { Invoice, Item } from "../../types";
 
 export const formatDate = (date: string) => {
   return format(new Date(date), "dd MMM yyyy");
@@ -30,3 +30,9 @@ export const paymentTermsOptions = [
   { value: 14, text: "Net 14 Days" },
   { value: 30, text: "Net 30 Days" },
 ];
+
+export const getTotal = (items: Item[]) => {
+  if (items.length === 1) return items[0].total;
+
+  return items.reduce((acc, curr) => acc + curr.total, 1);
+};
