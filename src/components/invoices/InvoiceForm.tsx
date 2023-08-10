@@ -3,69 +3,90 @@ import { Invoice, Item } from "../../types";
 import {
   createId,
   getPaymentDueDate,
-  getTotal,
   paymentTermsOptions,
 } from "../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
-import { createInvoice } from "./invoicesApi";
+import { createInvoice, editInvoice } from "./invoicesApi";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormItems from "./FormItems";
 import { invoiceSchema } from "../utils/validation";
 
-const initialValues: Invoice = {
-  id: "",
-  createdAt: format(Date.now(), "yyyy-MM-dd"),
-  paymentDue: "",
-  description: "",
-  paymentTerms: 1,
-  clientName: "",
-  clientEmail: "",
-  status: "draft",
-  senderAddress: {
-    street: "",
-    city: "",
-    postCode: "",
-    country: "",
-  },
-  clientAddress: {
-    street: "",
-    city: "",
-    postCode: "",
-    country: "",
-  },
-  items: [],
-  total: 0,
-};
+interface InvoiceFormProps {
+  edittingInvoice: Invoice | undefined;
+}
 
-const InvoiceForm = () => {
+const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { invoices } = useAppSelector((state) => state.invoices);
 
+  const initialValues: Invoice = {
+    id: edittingInvoice ? edittingInvoice.id : "",
+    createdAt: format(
+      edittingInvoice ? new Date(edittingInvoice.createdAt) : Date.now(),
+      "yyyy-MM-dd"
+    ),
+    paymentDue: edittingInvoice ? edittingInvoice.paymentDue : "",
+    description: edittingInvoice ? edittingInvoice.description : "",
+    paymentTerms: edittingInvoice ? edittingInvoice.paymentTerms : 1,
+    clientName: edittingInvoice ? edittingInvoice.clientName : "",
+    clientEmail: edittingInvoice ? edittingInvoice.clientEmail : "",
+    status: edittingInvoice ? edittingInvoice.status : "draft",
+    senderAddress: {
+      street: edittingInvoice ? edittingInvoice.senderAddress.street : "",
+      city: edittingInvoice ? edittingInvoice.senderAddress.city : "",
+      postCode: edittingInvoice ? edittingInvoice.senderAddress.postCode : "",
+      country: edittingInvoice ? edittingInvoice.senderAddress.country : "",
+    },
+    clientAddress: {
+      street: edittingInvoice ? edittingInvoice.clientAddress.street : "",
+      city: edittingInvoice ? edittingInvoice.clientAddress.city : "",
+      postCode: edittingInvoice ? edittingInvoice.clientAddress.postCode : "",
+      country: edittingInvoice ? edittingInvoice.clientAddress.country : "",
+    },
+    items: edittingInvoice ? edittingInvoice.items : [],
+    total: edittingInvoice ? edittingInvoice.total : 0,
+  };
+
   const handleSubmit = (values: Invoice) => {
-    dispatch(
-      createInvoice({
-        ...values,
-        id: createId(invoices),
-        paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
-        status: "pending",
-        total: getTotal(values.items),
-      })
-    );
+    if (edittingInvoice) {
+      dispatch(
+        editInvoice({
+          ...values,
+          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+        })
+      );
+    } else {
+      dispatch(
+        createInvoice({
+          ...values,
+          id: createId(invoices),
+          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+          status: "pending",
+        })
+      );
+    }
     navigate("/");
   };
 
   const handleSaveAsDraft = (values: Invoice) => {
-    console.log(values);
-    dispatch(
-      createInvoice({
-        ...values,
-        id: createId(invoices),
-        paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
-        total: getTotal(values.items),
-      })
-    );
+    if (edittingInvoice) {
+      dispatch(
+        editInvoice({
+          ...values,
+          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+        })
+      );
+    } else {
+      dispatch(
+        createInvoice({
+          ...values,
+          id: createId(invoices),
+          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+        })
+      );
+    }
     navigate("/");
   };
 

@@ -47,11 +47,11 @@ export const invoiceSchema = Yup.object({
           .min(2, "Too short! Must be at least 2 characters")
           .required("Required"),
         quantity: Yup.number()
-          .positive("Quantity must be a positive number")
+          .positive("Must be at least 1")
           .integer("Quantity must be an integer number")
           .required("Required"),
         price: Yup.number()
-          .positive("Price must be a positive number")
+          .positive("Must be more than 0")
           .required("Required"),
       })
     ),

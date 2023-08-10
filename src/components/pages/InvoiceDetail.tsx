@@ -1,13 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
-import { Invoice } from "../../types";
 import { formatDate } from "../utils/utils";
 
 const InvoiceDetailPage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);
   const { id: currentInvoiceId } = useParams();
-  const navigate = useNavigate();
 
   const currentInvoice = invoices.find(
     (invoice) => invoice.id === currentInvoiceId
@@ -19,9 +17,11 @@ const InvoiceDetailPage = () => {
 
   return (
     <>
-      <button onClick={() => navigate("/")}>
-        <IconArrowLeft />
-        <span>Go back</span>
+      <button>
+        <Link to={"/"}>
+          <IconArrowLeft />
+          <span>Go back</span>
+        </Link>
       </button>
       <div className="header">
         <p>Status</p>
@@ -30,7 +30,9 @@ const InvoiceDetailPage = () => {
           <p>{currentInvoice.status}</p>
         </div>
         <div className="action-buttons">
-          <button>Edit</button>
+          <button>
+            <Link to={"edit"}>Edit</Link>
+          </button>
           <button>Delete</button>
           <button>Mark as Paid</button>
         </div>

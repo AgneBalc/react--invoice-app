@@ -3,8 +3,8 @@ import InvoiceForm from "../invoices/InvoiceForm";
 const NewInvoicePage = () => {
   return (
     <section>
-      <h2>New Invoice</h2>
-      <InvoiceForm />
+      <h1>New Invoice</h1>
+      <InvoiceForm edittingInvoice={undefined} />
     </section>
   );
 };
