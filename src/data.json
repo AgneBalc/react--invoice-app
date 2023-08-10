@@ -254,17 +254,17 @@
         {
           "name": "",
           "quantity": 5,
-          "total": 0,
+          "total": 175,
           "price": 35
         },
         {
           "name": "TestTest",
           "quantity": 2,
-          "total": 0,
+          "total": 132,
           "price": 66
         }
       ],
-      "total": 0
+      "total": 307
     },
     {
       "id": "MG9163",
@@ -344,19 +344,13 @@
       },
       "items": [
         {
-          "name": "Test",
-          "quantity": 3,
-          "total": 451.32,
-          "price": 150.44
-        },
-        {
           "name": "TestTest",
           "quantity": 2,
           "total": 444,
           "price": 222
         }
       ],
-      "total": 895.3199999999999
+      "total": 444
     }
   ]
 }

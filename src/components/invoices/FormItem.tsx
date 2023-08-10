@@ -1,24 +1,27 @@
 import { FormikProps, getIn, FormikErrors } from "formik";
 import { Invoice, Item } from "../../types";
 import { useEffect } from "react";
+import { ReactComponent as DeleteIcon } from "../../assets/icon-delete.svg";
 
 interface ItemProps {
   index: number;
   item: Item;
   formik: FormikProps<Invoice>;
+  remove: (index: number) => void;
 }
 
-const FormItem = ({ index, item, formik }: ItemProps) => {
+const FormItem = ({ index, item, formik, remove }: ItemProps) => {
   const items = formik.values.items;
 
   const getInvoiceTotal = () => {
     const allTotals = items.reduce((acc, curr) => acc + curr.total, 0);
 
-    formik.setFieldValue("total", allTotals.toFixed(2));
+    formik.setFieldValue("total", parseFloat(allTotals.toFixed(2)));
   };
 
   useEffect(() => {
-    const itemTotal = (item.quantity * item.price).toFixed(2);
+    const itemTotal = parseFloat((item.quantity * item.price).toFixed(2));
+
     formik.setFieldValue(`items[${index}].total`, itemTotal);
   }, [items[index].quantity, items[index].price]);
 
@@ -72,6 +75,9 @@ const FormItem = ({ index, item, formik }: ItemProps) => {
         <p>Total</p>
         <span>{item.total}</span>
       </div>
+      <button type="button" onClick={() => remove(index)}>
+        <DeleteIcon />
+      </button>
     </div>
   );
 };

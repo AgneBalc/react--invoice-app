@@ -15,9 +15,8 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
       {typeof formik.errors.items === "string" && formik.submitCount > 0 && (
         <p>{formik.errors.items}</p>
       )}
-      <FieldArray
-        name="items"
-        render={(arrayHelpers) => (
+      <FieldArray name="items">
+        {({ remove, push }) => (
           <div>
             {items?.length > 0 &&
               items?.map((item: Item, index: number) => (
@@ -26,12 +25,13 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
                   item={item}
                   formik={formik}
                   index={index}
+                  remove={remove}
                 />
               ))}
             <button
               type="button"
               onClick={() =>
-                arrayHelpers.push({ name: "", quantity: 0, total: 0, price: 0 })
+                push({ name: "", quantity: 0, total: 0, price: 0 })
               }
             >
               <PlusIcon />
@@ -39,7 +39,7 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
             </button>
           </div>
         )}
-      />
+      </FieldArray>
     </div>
   );
 };
