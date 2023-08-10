@@ -14,11 +14,11 @@ const FormItem = ({ index, item, formik }: ItemProps) => {
   const getInvoiceTotal = () => {
     const allTotals = items.reduce((acc, curr) => acc + curr.total, 0);
 
-    formik.setFieldValue("total", allTotals);
+    formik.setFieldValue("total", allTotals.toFixed(2));
   };
 
   useEffect(() => {
-    const itemTotal = Number(item.quantity) * Number(item.price);
+    const itemTotal = (item.quantity * item.price).toFixed(2);
     formik.setFieldValue(`items[${index}].total`, itemTotal);
   }, [items[index].quantity, items[index].price]);
 
