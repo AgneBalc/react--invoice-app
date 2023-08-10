@@ -1,19 +1,24 @@
 import { Link, useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/redux-hooks";
+import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { formatDate } from "../utils/utils";
+import { setToPaid } from "../invoices/invoicesApi";
 
 const InvoiceDetailPage = () => {
-  const { invoices } = useAppSelector((state) => state.invoices);
+  const dispatch = useAppDispatch();
   const { id: currentInvoiceId } = useParams();
 
-  const currentInvoice = invoices.find(
-    (invoice) => invoice.id === currentInvoiceId
+  const currentInvoice = useAppSelector((state) =>
+    state.invoices.invoices.find((invoice) => invoice.id === currentInvoiceId)
   );
 
   if (!currentInvoice) {
     return <p>Loading invoice {currentInvoiceId}...</p>;
   }
+
+  const handleMarkAsPaid = () => {
+    dispatch(setToPaid(currentInvoice.id));
+  };
 
   return (
     <>
@@ -30,11 +35,15 @@ const InvoiceDetailPage = () => {
           <p>{currentInvoice.status}</p>
         </div>
         <div className="action-buttons">
-          <button>
-            <Link to={"edit"}>Edit</Link>
-          </button>
+          {currentInvoice.status !== "paid" && (
+            <button>
+              <Link to={"edit"}>Edit</Link>
+            </button>
+          )}
           <button>Delete</button>
-          <button>Mark as Paid</button>
+          {currentInvoice.status === "pending" && (
+            <button onClick={handleMarkAsPaid}>Mark as Paid</button>
+          )}
         </div>
       </div>
       <section>
@@ -96,7 +105,7 @@ const InvoiceDetailPage = () => {
               <tr key={currentInvoice.id + item.name}>
                 <td>{item.name}</td>
                 <td>{item.quantity}</td>
-                <td>&euro;{item.price.toFixed(2)}</td>
+                <td>&euro;{item.price}</td>
                 <td>&euro;{item.total}</td>
               </tr>
             ))}

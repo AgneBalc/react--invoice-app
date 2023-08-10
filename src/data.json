@@ -355,26 +355,33 @@
     {
       "id": "EB8545",
       "createdAt": "2023-08-10",
-      "paymentDue": "2023-08-11",
-      "description": "",
-      "paymentTerms": 1,
-      "clientName": "",
-      "clientEmail": "",
-      "status": "draft",
+      "paymentDue": "2023-08-24",
+      "description": "Ancient country",
+      "paymentTerms": "14",
+      "clientName": "Test",
+      "clientEmail": "test@test.lt",
+      "status": "paid",
       "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
+        "street": "R. Jankausko 15",
+        "city": "Vilnius",
+        "postCode": "04315",
+        "country": "Lithuania"
       },
       "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
+        "street": "R. Jankausko 15",
+        "city": "Vilnius",
+        "postCode": "04315",
+        "country": "Lithuania"
       },
-      "items": [],
-      "total": 0
+      "items": [
+        {
+          "name": "Test",
+          "quantity": 1,
+          "total": 15,
+          "price": 15
+        }
+      ],
+      "total": 15
     }
   ]
 }

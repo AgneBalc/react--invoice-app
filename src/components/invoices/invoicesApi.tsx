@@ -40,6 +40,20 @@ export const editInvoice = createAsyncThunk(
   }
 );
 
+export const setToPaid = createAsyncThunk(
+  "invoices/setToPaid",
+  async (id: string) => {
+    try {
+      const response = await axios.patch(`${API_URL}/${id}`, {
+        status: "paid",
+      });
+      return response.data;
+    } catch (error: any) {
+      return error.response.data.message;
+    }
+  }
+);
+
 export const deleteInvoice = async (id: string) => {
   await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
