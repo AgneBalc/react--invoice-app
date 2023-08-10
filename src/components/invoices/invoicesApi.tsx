@@ -54,8 +54,14 @@ export const setToPaid = createAsyncThunk(
   }
 );
 
-export const deleteInvoice = async (id: string) => {
-  await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-  });
-};
+export const deleteInvoice = createAsyncThunk(
+  "invoices/deleteInvoice",
+  async (id: string) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      return id;
+    } catch (error: any) {
+      return error.response.data.message;
+    }
+  }
+);

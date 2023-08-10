@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Invoice } from "../types";
 import {
   createInvoice,
+  deleteInvoice,
   editInvoice,
   getInvoices,
   setToPaid,
@@ -38,6 +39,12 @@ const invoicesSlice = createSlice({
           (invoice) => invoice.id === action.payload.id
         );
         state.invoices[index] = { ...state.invoices[index], status: "paid" };
+      })
+      .addCase(deleteInvoice.fulfilled, (state, action) => {
+        const updatedInvoices = state.invoices.filter(
+          (invoice) => invoice.id !== action.payload
+        );
+        state.invoices = updatedInvoices;
       });
   },
 });

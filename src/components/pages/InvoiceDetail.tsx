@@ -1,12 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { formatDate } from "../utils/utils";
-import { setToPaid } from "../invoices/invoicesApi";
+import { deleteInvoice, setToPaid } from "../invoices/invoicesApi";
+import { useState } from "react";
+import DeleteModal from "../invoices/DeleteModal";
 
 const InvoiceDetailPage = () => {
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { id: currentInvoiceId } = useParams();
+  const navigate = useNavigate();
 
   const currentInvoice = useAppSelector((state) =>
     state.invoices.invoices.find((invoice) => invoice.id === currentInvoiceId)
@@ -15,6 +19,11 @@ const InvoiceDetailPage = () => {
   if (!currentInvoice) {
     return <p>Loading invoice {currentInvoiceId}...</p>;
   }
+
+  const handleDelete = () => {
+    dispatch(deleteInvoice(currentInvoice.id));
+    navigate("/");
+  };
 
   const handleMarkAsPaid = () => {
     dispatch(setToPaid(currentInvoice.id));
@@ -40,12 +49,19 @@ const InvoiceDetailPage = () => {
               <Link to={"edit"}>Edit</Link>
             </button>
           )}
-          <button>Delete</button>
+          <button onClick={() => setIsDeleting(true)}>Delete</button>
           {currentInvoice.status === "pending" && (
             <button onClick={handleMarkAsPaid}>Mark as Paid</button>
           )}
         </div>
       </div>
+      {isDeleting && (
+        <DeleteModal
+          id={currentInvoice.id}
+          onConfirm={handleDelete}
+          onCancel={() => setIsDeleting(true)}
+        />
+      )}
       <section>
         <div className="main-info">
           <div>
