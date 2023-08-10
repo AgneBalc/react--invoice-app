@@ -351,6 +351,30 @@
         }
       ],
       "total": 444
+    },
+    {
+      "id": "EB8545",
+      "createdAt": "2023-08-10",
+      "paymentDue": "2023-08-11",
+      "description": "",
+      "paymentTerms": 1,
+      "clientName": "",
+      "clientEmail": "",
+      "status": "draft",
+      "senderAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "clientAddress": {
+        "street": "",
+        "city": "",
+        "postCode": "",
+        "country": ""
+      },
+      "items": [],
+      "total": 0
     }
   ]
 }

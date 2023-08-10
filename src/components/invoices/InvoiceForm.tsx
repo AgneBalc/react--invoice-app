@@ -55,6 +55,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
         editInvoice({
           ...values,
           paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+          status: "pending",
         })
       );
     } else {
@@ -71,22 +72,13 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
   };
 
   const handleSaveAsDraft = (values: Invoice) => {
-    if (edittingInvoice) {
-      dispatch(
-        editInvoice({
-          ...values,
-          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
-        })
-      );
-    } else {
-      dispatch(
-        createInvoice({
-          ...values,
-          id: createId(invoices),
-          paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
-        })
-      );
-    }
+    dispatch(
+      createInvoice({
+        ...values,
+        id: createId(invoices),
+        paymentDue: getPaymentDueDate(values.createdAt, values.paymentTerms),
+      })
+    );
     navigate("/");
   };
 
@@ -271,22 +263,26 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
           </div>
           <div className="form-buttons">
             <button type="button" onClick={() => navigate("/")}>
-              Discard
+              {edittingInvoice ? "Cancel" : "Discard"}
             </button>
-            <button
-              type="button"
-              onClick={() => handleSaveAsDraft(formik.values)}
-              disabled={
-                typeof formik.errors.items === "object" &&
-                (formik.errors.items as FormikErrors<Item>[]).some(
-                  (item: FormikErrors<Item>) =>
-                    typeof item === "object" && (item.quantity || item.price)
-                )
-              }
-            >
-              Save as Draft
+            {!edittingInvoice && (
+              <button
+                type="button"
+                onClick={() => handleSaveAsDraft(formik.values)}
+                disabled={
+                  typeof formik.errors.items === "object" &&
+                  (formik.errors.items as FormikErrors<Item>[]).some(
+                    (item: FormikErrors<Item>) =>
+                      typeof item === "object" && (item.quantity || item.price)
+                  )
+                }
+              >
+                Save as Draft
+              </button>
+            )}
+            <button type="submit">
+              {edittingInvoice ? "Save Changes" : "Save & Send"}
             </button>
-            <button type="submit">Save & Send</button>
           </div>
         </Form>
       )}
