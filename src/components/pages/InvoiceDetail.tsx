@@ -59,7 +59,7 @@ const InvoiceDetailPage = () => {
         <DeleteModal
           id={currentInvoice.id}
           onConfirm={handleDelete}
-          onCancel={() => setIsDeleting(true)}
+          onCancel={() => setIsDeleting(false)}
         />
       )}
       <section>
@@ -117,8 +117,8 @@ const InvoiceDetailPage = () => {
             </tr>
           </thead>
           <tbody>
-            {currentInvoice.items.map((item) => (
-              <tr key={currentInvoice.id + item.name}>
+            {currentInvoice.items.map((item, index) => (
+              <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.quantity}</td>
                 <td>&euro;{item.price}</td>
