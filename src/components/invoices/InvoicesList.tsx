@@ -1,12 +1,14 @@
-import { FC } from "react";
-import { useAppSelector } from "../../app/redux-hooks";
+import { Invoice } from "../../types";
 import InvoiceItem from "./InvoiceItem";
 
-const InvoicesList: FC = () => {
-  const { invoices } = useAppSelector((state) => state.invoices);
+interface InvoicesListProps {
+  filteredInvoices: Invoice[];
+}
+
+const InvoicesList = ({ filteredInvoices }: InvoicesListProps) => {
   return (
     <section>
-      {invoices.map((invoice) => (
+      {filteredInvoices.map((invoice) => (
         <InvoiceItem key={invoice.id} invoice={invoice} />
       ))}
     </section>

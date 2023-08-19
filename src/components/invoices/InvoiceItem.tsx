@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { Invoice } from "../../types";
 import { formatDate } from "../utils/utils";
 
-type InvoiceItemProps = { invoice: Invoice };
+interface InvoiceItemProps {
+  invoice: Invoice;
+}
 
 const InvoiceItem = ({ invoice }: InvoiceItemProps) => {
   return (
