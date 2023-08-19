@@ -3,6 +3,7 @@ import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
 import { useAppSelector } from "../../app/redux-hooks";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import CreateInvoiceMessage from "../invoices/CreateInvoiceMessage";
 
 const InvoicesPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
@@ -22,7 +23,11 @@ const InvoicesPage = () => {
     <>
       <div className="heading">
         <h1>Invoices</h1>
-        <p>{filteredInvoices.length} Invoices</p>
+        {filteredInvoices.length ? (
+          <p>{filteredInvoices.length} Invoices</p>
+        ) : (
+          <p>No invoices</p>
+        )}
         <div>
           <label htmlFor="filterByStatus">Filter by status</label>
           <select
@@ -43,8 +48,8 @@ const InvoicesPage = () => {
           </Link>
         </button>
       </div>
-      {!invoices.length ? (
-        <p>Loading...</p>
+      {!filteredInvoices.length ? (
+        <CreateInvoiceMessage />
       ) : (
         <InvoicesList filteredInvoices={filteredInvoices} />
       )}
