@@ -13,7 +13,7 @@ const InvoiceItem = ({ invoice }: InvoiceItemProps) => {
         <h3>{invoice.id}</h3>
         <span>Due {formatDate(invoice.paymentDue)}</span>
         <span>{invoice.clientName}</span>
-        <span>&euro;{invoice.total}</span>
+        <span>&euro;{invoice.total.toFixed(2)}</span>
         <div>{invoice.status}</div>
       </div>
     </Link>

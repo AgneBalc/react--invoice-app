@@ -121,15 +121,15 @@ const InvoiceDetailPage = () => {
               <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.quantity}</td>
-                <td>&euro;{item.price}</td>
-                <td>&euro;{item.total}</td>
+                <td>&euro;{item.price.toFixed(2)}</td>
+                <td>&euro;{item.total.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr>
               <td>Amount Due</td>
-              <td colSpan={3}>&euro;{currentInvoice.total}</td>
+              <td colSpan={3}>&euro;{currentInvoice.total.toFixed(2)}</td>
             </tr>
           </tfoot>
         </table>

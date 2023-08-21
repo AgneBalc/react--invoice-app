@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormItems from "./FormItems";
 import { invoiceSchema } from "../utils/validation";
+import DatePicker from "../ui/DatePicker";
 
 interface InvoiceFormProps {
   edittingInvoice: Invoice | undefined;
@@ -223,14 +224,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
           </fieldset>
           <div>
             <div>
-              <div>
-                <label htmlFor="createdAt">Invoice Date</label>
-                <input
-                  type="date"
-                  id="createdAt"
-                  {...formik.getFieldProps("createdAt")}
-                />
-              </div>
+              <DatePicker formik={formik} />
               <div>
                 <label htmlFor="paymentTerms">Payment Terms</label>
                 <select
