@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import FormItems from "./FormItems";
 import { invoiceSchema } from "../utils/validation";
 import DatePicker from "../ui/DatePicker";
+import SelectDropdown from "../ui/SelectDropdown";
 
 interface InvoiceFormProps {
   edittingInvoice: Invoice | undefined;
@@ -225,19 +226,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
           <div>
             <div>
               <DatePicker formik={formik} />
-              <div>
-                <label htmlFor="paymentTerms">Payment Terms</label>
-                <select
-                  id="paymentTerms"
-                  {...formik.getFieldProps("paymentTerms")}
-                >
-                  {paymentTermsOptions.map((option) => (
-                    <option value={option.value} key={option.value}>
-                      {option.text}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <SelectDropdown formik={formik} />
             </div>
             <div>
               <label htmlFor="description">Project Description</label>
