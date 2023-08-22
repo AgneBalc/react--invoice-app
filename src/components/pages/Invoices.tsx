@@ -7,18 +7,23 @@ import CreateInvoiceMessage from "../invoices/CreateInvoiceMessage";
 import FilterDropdown from "../ui/FilterDropdown";
 
 const InvoicesPage = () => {
-  const [selectedFilter, setSelectedFilter] = useState<string>("all");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
   const { invoices } = useAppSelector((state) => state.invoices);
 
-  const filterHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setSelectedFilter(value);
+  const handleFilterToggle = () => {
+    setShowFilter(!showFilter);
+  };
+
+  const handleFilter = (status: string) => {
+    setSelectedStatus(status === selectedStatus ? "" : status);
+    setShowFilter(false);
   };
 
   const filteredInvoices =
-    selectedFilter === "all"
+    selectedStatus === ""
       ? invoices
-      : invoices.filter((invoice) => selectedFilter === invoice.status);
+      : invoices.filter((invoice) => selectedStatus === invoice.status);
 
   return (
     <>
@@ -29,20 +34,12 @@ const InvoicesPage = () => {
         ) : (
           <p>No invoices</p>
         )}
-        <div>
-          <label htmlFor="filterByStatus">Filter by status</label>
-          <select
-            name="filterByStatus"
-            id="filterByStatus"
-            onChange={filterHandler}
-          >
-            <option value="all">All</option>
-            <option value="pending">Pending</option>
-            <option value="draft">Draft</option>
-            <option value="paid">Paid</option>
-          </select>
-        </div>
-        <FilterDropdown />
+        <FilterDropdown
+          handleFilter={handleFilter}
+          selectedStatus={selectedStatus}
+          handleFilterToggle={handleFilterToggle}
+          showFilter={showFilter}
+        />
         <button>
           <Link to="new">
             <IconPlus />
