@@ -4,6 +4,7 @@ import { useAppSelector } from "../../app/redux-hooks";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import CreateInvoiceMessage from "../invoices/CreateInvoiceMessage";
+import FilterDropdown from "../ui/FilterDropdown";
 
 const InvoicesPage = () => {
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
@@ -41,6 +42,7 @@ const InvoicesPage = () => {
             <option value="paid">Paid</option>
           </select>
         </div>
+        <FilterDropdown />
         <button>
           <Link to="new">
             <IconPlus />
