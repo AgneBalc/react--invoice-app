@@ -11,8 +11,10 @@ interface DatePickerProps {
 }
 
 const DatePicker = ({ formik }: DatePickerProps) => {
+  const [showCalendar, setShowCalendar] = useState(false);
+
   const initialDate = new Date(formik.values.createdAt);
-  const initialMonth = new Date(initialDate).getMonth();
+  const initialMonth = initialDate.getMonth();
   const initialYear = getYear(initialDate);
   const initialDaysInMonth = getDaysInMonth(initialDate);
 
@@ -24,6 +26,10 @@ const DatePicker = ({ formik }: DatePickerProps) => {
   useEffect(() => {
     setDaysInMonthTotal(getDaysInMonth(new Date(selectedYear, selectedMonth)));
   }, [selectedMonth]);
+
+  const handleToggleCalendar = () => {
+    setShowCalendar(!showCalendar);
+  };
 
   const handlePrevMonth = () => {
     setSelectedMonth((curr) => {
@@ -51,6 +57,7 @@ const DatePicker = ({ formik }: DatePickerProps) => {
     const newDate = new Date(selectedYear, selectedMonth, selectedDay);
     setSelectedDate(newDate);
     formik.setFieldValue("createdAt", format(new Date(newDate), "yyyy-MM-dd"));
+    setShowCalendar(false);
   };
 
   const daysInMonth = Array.from(Array(daysInMonthTotal).keys(), (x) => x + 1);
@@ -58,7 +65,7 @@ const DatePicker = ({ formik }: DatePickerProps) => {
   return (
     <div>
       <label htmlFor="createdAt">Invoice Date</label>
-      <div>
+      <div onClick={handleToggleCalendar}>
         <input
           type="text"
           id="createdAt"
@@ -67,24 +74,26 @@ const DatePicker = ({ formik }: DatePickerProps) => {
         />
         <IconCalendar />
       </div>
-      <div>
+      {showCalendar && (
         <div>
-          <button type="button" onClick={handlePrevMonth}>
-            <IconArrowLeft />
-          </button>
-          <p>{format(new Date(selectedYear, selectedMonth), "MMM yyyy")}</p>
-          <button type="button" onClick={handleNextMonth}>
-            <IconArrowRight />
-          </button>
+          <div>
+            <button type="button" onClick={handlePrevMonth}>
+              <IconArrowLeft />
+            </button>
+            <p>{format(new Date(selectedYear, selectedMonth), "MMM yyyy")}</p>
+            <button type="button" onClick={handleNextMonth}>
+              <IconArrowRight />
+            </button>
+          </div>
+          <div>
+            {daysInMonth.map((day, index) => (
+              <p key={index} onClick={() => handleDateSelect(day)}>
+                {day}
+              </p>
+            ))}
+          </div>
         </div>
-        <div>
-          {daysInMonth.map((day, index) => (
-            <p key={index} onClick={() => handleDateSelect(day)}>
-              {day}
-            </p>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
