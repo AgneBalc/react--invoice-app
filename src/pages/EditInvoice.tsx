@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import InvoiceForm from "../invoices/InvoiceForm";
-import { useAppSelector } from "../../app/redux-hooks";
+import { useAppSelector } from "../hooks/redux-hooks";
+import InvoiceForm from "../components/form/InvoiceForm";
 
 const EditInvoicePage = () => {
   const { invoices } = useAppSelector((state) => state.invoices);

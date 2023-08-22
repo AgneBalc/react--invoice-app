@@ -1,5 +1,5 @@
 import { format, addDays } from "date-fns";
-import { Invoice } from "../../types";
+import { Invoice } from "../types";
 
 export const formatDate = (date: string) => {
   return format(new Date(date), "dd MMM yyyy");

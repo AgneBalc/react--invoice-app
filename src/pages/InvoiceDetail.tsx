@@ -1,10 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
-import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
-import { formatDate } from "../utils/utils";
-import { deleteInvoice, setToPaid } from "../invoices/invoicesApi";
+import { useAppDispatch, useAppSelector } from "../hooks/redux-hooks";
+import { ReactComponent as IconArrowLeft } from "../assets/icon-arrow-left.svg";
+import { formatDate } from "../utils/helpers";
+import { deleteInvoice, setToPaid } from "../utils/invoicesApi";
 import { useState } from "react";
-import DeleteModal from "../invoices/DeleteModal";
+import DeleteModal from "../components/invoice/DeleteModal";
 
 const InvoiceDetailPage = () => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);

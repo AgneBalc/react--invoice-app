@@ -6,7 +6,7 @@ import {
   editInvoice,
   getInvoices,
   setToPaid,
-} from "../components/invoices/invoicesApi";
+} from "../utils/invoicesApi";
 
 interface InvoicesInicialState {
   invoices: Invoice[];

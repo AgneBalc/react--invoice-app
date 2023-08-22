@@ -1,18 +1,14 @@
 import { Form, Formik, FormikErrors } from "formik";
 import { Invoice, Item } from "../../types";
-import {
-  createId,
-  getPaymentDueDate,
-  paymentTermsOptions,
-} from "../utils/utils";
-import { useAppDispatch, useAppSelector } from "../../app/redux-hooks";
-import { createInvoice, editInvoice } from "./invoicesApi";
+import { createId, getPaymentDueDate } from "../../utils/helpers";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { createInvoice, editInvoice } from "../../utils/invoicesApi";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import FormItems from "./FormItems";
-import { invoiceSchema } from "../utils/validation";
-import DatePicker from "../ui/DatePicker";
-import SelectDropdown from "../ui/SelectDropdown";
+import { invoiceSchema } from "../../utils/validation";
+import DatePicker from "./DatePicker";
+import SelectDropdown from "./SelectDropdown";
 
 interface InvoiceFormProps {
   edittingInvoice: Invoice | undefined;

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
 
 interface FilterDropdownProps {

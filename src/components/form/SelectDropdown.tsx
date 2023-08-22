@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { Invoice } from "../../types";
-import { paymentTermsOptions } from "../utils/utils";
+import { paymentTermsOptions } from "../../utils/helpers";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
 import { useState } from "react";
 

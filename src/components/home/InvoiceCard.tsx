@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { Invoice } from "../../types";
-import { formatDate } from "../utils/utils";
+import { formatDate } from "../../utils/helpers";
 
-interface InvoiceItemProps {
+interface InvoiceCardProps {
   invoice: Invoice;
 }
 
-const InvoiceItem = ({ invoice }: InvoiceItemProps) => {
+const InvoiceCard = ({ invoice }: InvoiceCardProps) => {
   return (
     <Link to={invoice.id}>
       <div>
@@ -20,4 +20,4 @@ const InvoiceItem = ({ invoice }: InvoiceItemProps) => {
   );
 };
 
-export default InvoiceItem;
+export default InvoiceCard;

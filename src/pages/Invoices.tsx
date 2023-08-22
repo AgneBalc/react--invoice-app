@@ -1,10 +1,10 @@
-import InvoicesList from "../invoices/InvoicesList";
-import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
-import { useAppSelector } from "../../app/redux-hooks";
+import InvoicesList from "../components/home/InvoicesList";
+import { ReactComponent as IconPlus } from "../assets/icon-plus.svg";
+import { useAppSelector } from "../hooks/redux-hooks";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import CreateInvoiceMessage from "../invoices/CreateInvoiceMessage";
-import FilterDropdown from "../ui/FilterDropdown";
+import CreateInvoiceMessage from "../components/home/CreateInvoiceMessage";
+import FilterDropdown from "../components/home/FilterDropdown";
 
 const InvoicesPage = () => {
   const [selectedStatus, setSelectedStatus] = useState("");

@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./components/layout/Root";
-import InvoicesPage from "./components/pages/Invoices";
-import InvoiceDetailPage from "./components/pages/InvoiceDetail";
-import EditInvoicePage from "./components/pages/EditInvoice";
-import NewInvoicePage from "./components/pages/NewInvoice";
+import InvoicesPage from "./pages/Invoices";
+import InvoiceDetailPage from "./pages/InvoiceDetail";
+import EditInvoicePage from "./pages/EditInvoice";
+import NewInvoicePage from "./pages/NewInvoice";
 
 const router = createBrowserRouter([
   {
