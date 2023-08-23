@@ -387,30 +387,6 @@
       "total": 0
     },
     {
-      "id": "UL4619",
-      "createdAt": "2023-08-22",
-      "paymentDue": "2023-08-23",
-      "description": "",
-      "paymentTerms": 1,
-      "clientName": "",
-      "clientEmail": "",
-      "status": "draft",
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [],
-      "total": 0
-    },
-    {
       "id": "FT1243",
       "createdAt": "2023-08-22",
       "paymentDue": "2023-09-21",
