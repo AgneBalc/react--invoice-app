@@ -1,14 +1,14 @@
-import { Invoice, Item } from "../../types";
+import { Invoice, InvoiceItem } from "../../types";
 import { FieldArray, FormikProps } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
-import FormItem from "./FormItem";
+import Item from "./Item";
 
-interface FormItemsProps {
-  items: Item[];
+interface ItemListProps {
+  items: InvoiceItem[];
   formik: FormikProps<Invoice>;
 }
 
-const FormItems = ({ items, formik }: FormItemsProps) => {
+const ItemList = ({ items, formik }: ItemListProps) => {
   return (
     <div>
       <h3>Items List</h3>
@@ -19,8 +19,8 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
         {({ remove, push }) => (
           <div>
             {items?.length > 0 &&
-              items?.map((item: Item, index: number) => (
-                <FormItem
+              items?.map((item: InvoiceItem, index: number) => (
+                <Item
                   key={index}
                   item={item}
                   formik={formik}
@@ -44,4 +44,4 @@ const FormItems = ({ items, formik }: FormItemsProps) => {
   );
 };
 
-export default FormItems;
+export default ItemList;

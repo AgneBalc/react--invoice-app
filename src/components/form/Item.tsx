@@ -1,16 +1,16 @@
 import { FormikProps, getIn, FormikErrors } from "formik";
-import { Invoice, Item } from "../../types";
+import { Invoice, InvoiceItem } from "../../types";
 import { useEffect } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icon-delete.svg";
 
 interface ItemProps {
   index: number;
-  item: Item;
+  item: InvoiceItem;
   formik: FormikProps<Invoice>;
   remove: (index: number) => void;
 }
 
-const FormItem = ({ index, item, formik, remove }: ItemProps) => {
+const Item = ({ index, item, formik, remove }: ItemProps) => {
   const items = formik.values.items;
 
   const getInvoiceTotal = () => {
@@ -30,7 +30,7 @@ const FormItem = ({ index, item, formik, remove }: ItemProps) => {
   }, [items[index].total]);
 
   const hasErrorForField = (index: number, fieldName: string) => {
-    const itemErrors = formik.errors.items as FormikErrors<Item>[];
+    const itemErrors = formik.errors.items as FormikErrors<InvoiceItem>[];
     return Boolean(getIn(itemErrors, `${index}.${fieldName}`));
   };
 
@@ -82,4 +82,4 @@ const FormItem = ({ index, item, formik, remove }: ItemProps) => {
   );
 };
 
-export default FormItem;
+export default Item;

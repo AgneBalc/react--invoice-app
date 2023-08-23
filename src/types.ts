@@ -19,13 +19,13 @@ export interface Invoice {
     postCode: string;
     country: string;
   };
-  items: Item[];
+  items: InvoiceItem[];
   total: number;
 }
 
 export type InvoiceStatus = "paid" | "pending" | "draft";
 
-export type Item = {
+export type InvoiceItem = {
   name: string;
   quantity: number;
   price: number;
