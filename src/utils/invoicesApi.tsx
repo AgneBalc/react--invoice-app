@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Invoice } from "../types";
+import { Invoice } from "./types";
 import axios from "axios";
 
 const API_URL: string = "http://localhost:8080/invoices";

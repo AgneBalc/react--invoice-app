@@ -1,5 +1,5 @@
 import { Form, Formik, FormikErrors } from "formik";
-import { Invoice, InvoiceItem } from "../../types";
+import { Invoice, InvoiceItem } from "../../utils/types";
 import { createId, getPaymentDueDate } from "../../utils/helpers";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
 import { createInvoice, editInvoice } from "../../utils/invoicesApi";

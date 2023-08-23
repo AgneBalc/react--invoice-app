@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Invoice } from "../types";
+import { Invoice } from "../utils/types";
 import {
   createInvoice,
   deleteInvoice,

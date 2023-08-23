@@ -1,4 +1,4 @@
-import { Invoice } from "../../types";
+import { Invoice } from "../../utils/types";
 import InvoiceCard from "./InvoiceCard";
 
 interface InvoicesListProps {

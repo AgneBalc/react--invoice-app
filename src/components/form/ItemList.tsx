@@ -1,4 +1,4 @@
-import { Invoice, InvoiceItem } from "../../types";
+import { Invoice, InvoiceItem } from "../../utils/types";
 import { FieldArray, useFormikContext } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 import Item from "./Item";

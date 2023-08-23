@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Invoice } from "../../types";
+import { Invoice } from "../../utils/types";
 import DeleteModal from "./DeleteModal";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { deleteInvoice, setToPaid } from "../../utils/invoicesApi";

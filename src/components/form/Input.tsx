@@ -1,5 +1,5 @@
 import { getIn, useFormikContext } from "formik";
-import { Invoice } from "../../types";
+import { Invoice } from "../../utils/types";
 
 interface InputProps {
   name: string;

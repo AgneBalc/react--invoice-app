@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Invoice } from "../../types";
+import { Invoice } from "../../utils/types";
 import { formatDate } from "../../utils/helpers";
 
 interface InvoiceCardProps {

@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 import { ReactComponent as IconCalendar } from "../../assets/icon-calendar.svg";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { ReactComponent as IconArrowRight } from "../../assets/icon-arrow-right.svg";
-import { Invoice } from "../../types";
+import { Invoice } from "../../utils/types";
 import { useEffect, useState } from "react";
 import { format, getDaysInMonth, getYear } from "date-fns";
 

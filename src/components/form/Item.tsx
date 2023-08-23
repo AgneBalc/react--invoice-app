@@ -1,5 +1,5 @@
 import { useFormikContext } from "formik";
-import { Invoice, InvoiceItem } from "../../types";
+import { Invoice, InvoiceItem } from "../../utils/types";
 import { useEffect } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icon-delete.svg";
 import Input from "./Input";

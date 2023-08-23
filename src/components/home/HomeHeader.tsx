@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
-import { Invoice, InvoiceStatus } from "../../types";
+import { Invoice, InvoiceStatus } from "../../utils/types";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
 
 interface HomeHeaderProps {
