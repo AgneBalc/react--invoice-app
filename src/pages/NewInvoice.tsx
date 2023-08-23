@@ -4,7 +4,7 @@ const NewInvoicePage = () => {
   return (
     <section>
       <h1>New Invoice</h1>
-      <InvoiceForm edittingInvoice={undefined} />
+      <InvoiceForm />
     </section>
   );
 };

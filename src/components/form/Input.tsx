@@ -1,4 +1,4 @@
-import { FormikProps, getIn } from "formik";
+import { getIn, useFormikContext } from "formik";
 import { Invoice } from "../../types";
 
 interface InputProps {
@@ -6,11 +6,13 @@ interface InputProps {
   type: string;
   label: string;
   placeholder?: string;
-  formik: FormikProps<Invoice>;
+  step?: string;
 }
 
-const Input = ({ type, label, formik, name, placeholder }: InputProps) => {
-  const errorMessage = getIn(formik.errors, name) as string | undefined;
+const Input = ({ type, label, name, placeholder, step }: InputProps) => {
+  const { getFieldProps, errors, submitCount } = useFormikContext<Invoice>();
+
+  const errorMessage = getIn(errors, name) as string | undefined;
 
   return (
     <div>
@@ -19,9 +21,10 @@ const Input = ({ type, label, formik, name, placeholder }: InputProps) => {
         type={type}
         id={name}
         placeholder={placeholder}
-        {...formik.getFieldProps(name)}
+        step={step}
+        {...getFieldProps(name)}
       />
-      {errorMessage && formik.submitCount > 0 && <p>{errorMessage}</p>}
+      {errorMessage && submitCount > 0 && <p>{errorMessage}</p>}
     </div>
   );
 };

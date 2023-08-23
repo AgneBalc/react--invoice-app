@@ -1,79 +1,53 @@
-import { FormikProps, getIn, FormikErrors } from "formik";
+import { useFormikContext } from "formik";
 import { Invoice, InvoiceItem } from "../../types";
 import { useEffect } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icon-delete.svg";
+import Input from "./Input";
 
 interface ItemProps {
   index: number;
   item: InvoiceItem;
-  formik: FormikProps<Invoice>;
   remove: (index: number) => void;
 }
 
-const Item = ({ index, item, formik, remove }: ItemProps) => {
-  const items = formik.values.items;
+const Item = ({ index, item, remove }: ItemProps) => {
+  const { values, setFieldValue } = useFormikContext<Invoice>();
+  const items = values.items;
 
   const getInvoiceTotal = () => {
     const allTotals = items.reduce((acc, curr) => acc + curr.total, 0);
 
-    formik.setFieldValue("total", parseFloat(allTotals.toFixed(2)));
+    setFieldValue("total", parseFloat(allTotals.toFixed(2)));
   };
 
   useEffect(() => {
     const itemTotal = parseFloat((item.quantity * item.price).toFixed(2));
 
-    formik.setFieldValue(`items[${index}].total`, itemTotal);
+    setFieldValue(`items[${index}].total`, itemTotal);
   }, [items[index].quantity, items[index].price]);
 
   useEffect(() => {
     getInvoiceTotal();
   }, [items[index].total]);
 
-  const hasErrorForField = (index: number, fieldName: string) => {
-    const itemErrors = formik.errors.items as FormikErrors<InvoiceItem>[];
-    return Boolean(getIn(itemErrors, `${index}.${fieldName}`));
-  };
-
   return (
     <div>
-      <div className="item-name">
-        <label htmlFor={`items[${index}].name`}>Item Name</label>
-        <input
-          type="text"
-          id={`items[${index}].name`}
-          {...formik.getFieldProps(`items[${index}].name`)}
-        />
-        {hasErrorForField(index, "name") && formik.submitCount > 0 ? (
-          <p>{getIn(formik.errors, `items[${index}].name`)}</p>
-        ) : null}
-      </div>
-      <div className="item-qty">
-        <label htmlFor={`items[${index}].quantity`}>Qty</label>
-        <input
-          type="number"
-          id={`items[${index}].quantity`}
-          step="1"
-          {...formik.getFieldProps(`items[${index}].quantity`)}
-        />
-        {hasErrorForField(index, "quantity") ? (
-          <p>{getIn(formik.errors, `items[${index}].quantity`)}</p>
-        ) : null}
-      </div>
-      <div className="item-price">
-        <label htmlFor={`items[${index}].price`}>Price</label>
-        <input
-          type="number"
-          id={`items[${index}].price`}
-          step="0.01"
-          {...formik.getFieldProps(`items[${index}].price`)}
-        />
-        {hasErrorForField(index, "price") ? (
-          <p>{getIn(formik.errors, `items[${index}].price`)}</p>
-        ) : null}
-      </div>
+      <Input name={`items[${index}].name`} type="text" label="Item Name" />
+      <Input
+        name={`items[${index}].quantity`}
+        type="number"
+        label="Qty"
+        step="1"
+      />
+      <Input
+        name={`items[${index}].price`}
+        type="number"
+        label="Price"
+        step="0.01"
+      />
       <div className="item-total">
         <p>Total</p>
-        <span>{item.total}</span>
+        <span>{item.total.toFixed(2)}</span>
       </div>
       <button type="button" onClick={() => remove(index)}>
         <DeleteIcon />

@@ -1,4 +1,4 @@
-import { FormikProps } from "formik";
+import { useFormikContext } from "formik";
 import { ReactComponent as IconCalendar } from "../../assets/icon-calendar.svg";
 import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
 import { ReactComponent as IconArrowRight } from "../../assets/icon-arrow-right.svg";
@@ -6,14 +6,15 @@ import { Invoice } from "../../types";
 import { useEffect, useState } from "react";
 import { format, getDaysInMonth, getYear } from "date-fns";
 
-interface DatePickerProps {
-  formik: FormikProps<Invoice>;
-}
-
-const DatePicker = ({ formik }: DatePickerProps) => {
+const DatePicker = () => {
   const [showCalendar, setShowCalendar] = useState(false);
+  const {
+    values: { createdAt },
+    setFieldValue,
+    getFieldProps,
+  } = useFormikContext<Invoice>();
 
-  const initialDate = new Date(formik.values.createdAt);
+  const initialDate = new Date(createdAt);
   const initialMonth = initialDate.getMonth();
   const initialYear = getYear(initialDate);
   const initialDaysInMonth = getDaysInMonth(initialDate);
@@ -56,7 +57,7 @@ const DatePicker = ({ formik }: DatePickerProps) => {
   const handleDateSelect = (selectedDay: number) => {
     const newDate = new Date(selectedYear, selectedMonth, selectedDay);
     setSelectedDate(newDate);
-    formik.setFieldValue("createdAt", format(new Date(newDate), "yyyy-MM-dd"));
+    setFieldValue("createdAt", format(new Date(newDate), "yyyy-MM-dd"));
     setShowCalendar(false);
   };
 
@@ -70,7 +71,7 @@ const DatePicker = ({ formik }: DatePickerProps) => {
           type="text"
           id="createdAt"
           readOnly
-          {...formik.getFieldProps("createdAt")}
+          {...getFieldProps("createdAt")}
         />
         <IconCalendar />
       </div>

@@ -12,7 +12,7 @@ import SelectDropdown from "./SelectDropdown";
 import Input from "./Input";
 
 interface InvoiceFormProps {
-  edittingInvoice: Invoice | undefined;
+  edittingInvoice?: Invoice;
 }
 
 const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
@@ -91,7 +91,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
         handleSubmit(values);
       }}
     >
-      {(formik) => (
+      {({ values, errors }) => (
         <Form>
           <fieldset>
             <legend>Bill From</legend>
@@ -99,85 +99,50 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
               name="senderAddress.street"
               type="text"
               label="Street Address"
-              formik={formik}
             />
             <div>
-              <Input
-                name="senderAddress.city"
-                type="text"
-                label="City"
-                formik={formik}
-              />
+              <Input name="senderAddress.city" type="text" label="City" />
               <Input
                 name="senderAddress.postCode"
                 type="text"
                 label="Postal Code"
-                formik={formik}
               />
-              <Input
-                name="senderAddress.country"
-                type="text"
-                label="Country"
-                formik={formik}
-              />
+              <Input name="senderAddress.country" type="text" label="Country" />
             </div>
           </fieldset>
           <fieldset>
             <legend>Bill To</legend>
-            <Input
-              name="clientName"
-              type="text"
-              label="Client's Name"
-              formik={formik}
-            />
-            <Input
-              name="clientEmail"
-              type="email"
-              label="Client's Email"
-              formik={formik}
-            />
+            <Input name="clientName" type="text" label="Client's Name" />
+            <Input name="clientEmail" type="email" label="Client's Email" />
             <Input
               name="clientAddress.street"
               type="text"
               label="Street Address"
-              formik={formik}
             />
             <div>
-              <Input
-                name="clientAddress.city"
-                type="text"
-                label="City"
-                formik={formik}
-              />
+              <Input name="clientAddress.city" type="text" label="City" />
               <Input
                 name="clientAddress.postCode"
                 type="text"
                 label="Postal Code"
-                formik={formik}
               />
-              <Input
-                name="clientAddress.country"
-                type="text"
-                label="Country"
-                formik={formik}
-              />
+              <Input name="clientAddress.country" type="text" label="Country" />
             </div>
           </fieldset>
           <div>
             <div>
-              <DatePicker formik={formik} />
-              <SelectDropdown formik={formik} />
+              <DatePicker />
+              <SelectDropdown />
             </div>
             <Input
               name="description"
               type="text"
               label="Project Description"
               placeholder="e.g. Graphic Design Service"
-              formik={formik}
             />
           </div>
           <div>
-            <ItemList items={formik.values.items} formik={formik} />
+            <ItemList items={values.items} />
           </div>
           <div className="form-buttons">
             <button type="button" onClick={() => navigate("/")}>
@@ -186,10 +151,10 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
             {!edittingInvoice && (
               <button
                 type="button"
-                onClick={() => handleSaveAsDraft(formik.values)}
+                onClick={() => handleSaveAsDraft(values)}
                 disabled={
-                  typeof formik.errors.items === "object" &&
-                  (formik.errors.items as FormikErrors<InvoiceItem>[]).some(
+                  typeof errors.items === "object" &&
+                  (errors.items as FormikErrors<InvoiceItem>[]).some(
                     (item: FormikErrors<InvoiceItem>) =>
                       typeof item === "object" && (item.quantity || item.price)
                   )

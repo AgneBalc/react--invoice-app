@@ -1,18 +1,18 @@
-import { FormikProps } from "formik";
+import { useFormikContext } from "formik";
 import { Invoice } from "../../types";
 import { paymentTermsOptions } from "../../utils/helpers";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
 import { useState } from "react";
 
-interface SelectDropdownProps {
-  formik: FormikProps<Invoice>;
-}
-
-const SelectDropdown = ({ formik }: SelectDropdownProps) => {
+const SelectDropdown = () => {
   const [showOptions, setShowOptions] = useState(false);
+  const {
+    values: { paymentTerms },
+    setFieldValue,
+  } = useFormikContext<Invoice>();
 
   const selectedValue = paymentTermsOptions.find(
-    (option) => option.value === formik.values.paymentTerms
+    (option) => option.value === paymentTerms
   );
 
   const handleToggleOptions = () => {
@@ -20,7 +20,7 @@ const SelectDropdown = ({ formik }: SelectDropdownProps) => {
   };
 
   const handleSelect = (value: number) => {
-    formik.setFieldValue("paymentTerms", value);
+    setFieldValue("paymentTerms", value);
     setShowOptions(false);
   };
 
