@@ -5,9 +5,9 @@ import InvoiceDetailPage from "./pages/InvoiceDetail";
 import EditInvoicePage from "./pages/EditInvoice";
 import NewInvoicePage from "./pages/NewInvoice";
 import { useAppSelector } from "./hooks/redux-hooks";
-import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import themes from "./styles/themes";
+import { GlobalStyles } from "./styles/globalStyles";
 
 const router = createBrowserRouter([
   {
@@ -30,14 +30,11 @@ const router = createBrowserRouter([
 const App = () => {
   const { theme } = useAppSelector((state) => state.theme);
 
-  useEffect(() => {
-    localStorage.setItem("theme", JSON.stringify(theme));
-  }, [theme]);
-
   return (
     <ThemeProvider
       theme={theme === "dark" ? themes.darkMode : themes.lightMode}
     >
+      <GlobalStyles />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

@@ -8,7 +8,10 @@ const getTheme = () => {
   let theme = localStorage.getItem("theme");
 
   if (theme) return JSON.parse(theme);
-  else return "light";
+  else {
+    localStorage.setItem("theme", JSON.stringify("light"));
+    return "light";
+  }
 };
 
 const initialState: ThemeInicialState = {

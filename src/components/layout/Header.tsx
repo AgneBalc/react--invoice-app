@@ -18,14 +18,10 @@ const Header = () => {
               dispatch(toggleTheme());
             }}
           >
-            <a href="">
-              <IconMoon />
-            </a>
+            <IconMoon />
           </li>
           <li className="avatarIcon">
-            <a href="">
-              <img src={Avatar} alt="avatar image" />
-            </a>
+            <img src={Avatar} alt="avatar image" />
           </li>
         </ul>
       </nav>
