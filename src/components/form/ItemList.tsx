@@ -2,6 +2,7 @@ import { Invoice, InvoiceItem } from "../../utils/types";
 import { FieldArray, useFormikContext } from "formik";
 import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 import Item from "./Item";
+import Button from "../ui/Button";
 
 interface ItemListProps {
   items: InvoiceItem[];
@@ -22,15 +23,16 @@ const ItemList = ({ items }: ItemListProps) => {
               items?.map((item: InvoiceItem, index: number) => (
                 <Item key={index} item={item} index={index} remove={remove} />
               ))}
-            <button
+            <Button
               type="button"
+              className="new-item"
               onClick={() =>
                 push({ name: "", quantity: 0, total: 0, price: 0 })
               }
             >
               <PlusIcon />
               <span>Add New Item</span>
-            </button>
+            </Button>
           </div>
         )}
       </FieldArray>

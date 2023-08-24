@@ -10,6 +10,7 @@ import { invoiceSchema } from "../../utils/validation";
 import DatePicker from "./DatePicker";
 import SelectDropdown from "./SelectDropdown";
 import Input from "./Input";
+import Button from "../ui/Button";
 
 interface InvoiceFormProps {
   edittingInvoice?: Invoice;
@@ -145,12 +146,17 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
             <ItemList items={values.items} />
           </div>
           <div className="form-buttons">
-            <button type="button" onClick={() => navigate("/")}>
+            <Button
+              type="button"
+              className={edittingInvoice ? "cancel" : "discard"}
+              onClick={() => navigate("/")}
+            >
               {edittingInvoice ? "Cancel" : "Discard"}
-            </button>
+            </Button>
             {!edittingInvoice && (
-              <button
+              <Button
                 type="button"
+                className="save-draft"
                 onClick={() => handleSaveAsDraft(values)}
                 disabled={
                   typeof errors.items === "object" &&
@@ -161,11 +167,11 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
                 }
               >
                 Save as Draft
-              </button>
+              </Button>
             )}
-            <button type="submit">
+            <Button type="submit" className="save">
               {edittingInvoice ? "Save Changes" : "Save & Send"}
-            </button>
+            </Button>
           </div>
         </Form>
       )}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
 import { Invoice, InvoiceStatus } from "../../utils/types";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
+import Button from "../ui/Button";
 
 interface HomeHeaderProps {
   invoices: Invoice[];
@@ -58,12 +59,12 @@ const HomeHeader = ({
             </label>
           ))}
       </div>
-      <button>
+      <Button className="new">
         <Link to="new">
           <IconPlus />
           <span>New Invoice</span>
         </Link>
-      </button>
+      </Button>
     </div>
   );
 };

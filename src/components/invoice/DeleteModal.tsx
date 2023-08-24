@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import { styled } from "styled-components";
+import Button from "../ui/Button";
 
 interface ModalProps {
   id: string;
@@ -20,8 +21,12 @@ const ModalOverlay = ({ id, onConfirm, onCancel }: ModalProps) => {
         undone.
       </p>
       <div>
-        <button onClick={onCancel}>Cancel</button>
-        <button onClick={onConfirm}>Delete</button>
+        <Button className="cancel" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button className="delete" onClick={onConfirm}>
+          Delete
+        </Button>
       </div>
     </InvoiceModalInner>
   );

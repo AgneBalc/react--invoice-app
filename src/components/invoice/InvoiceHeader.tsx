@@ -4,6 +4,7 @@ import { Invoice } from "../../utils/types";
 import DeleteModal from "./DeleteModal";
 import { useAppDispatch } from "../../hooks/redux-hooks";
 import { deleteInvoice, setToPaid } from "../../utils/invoicesApi";
+import Button from "../ui/Button";
 
 interface InvoiceHeaderProps {
   invoice: Invoice;
@@ -33,13 +34,17 @@ const InvoiceHeader = ({ invoice }: InvoiceHeaderProps) => {
         </div>
         <div className="action-buttons">
           {invoice.status !== "paid" && (
-            <button>
+            <Button className="edit">
               <Link to={"edit"}>Edit</Link>
-            </button>
+            </Button>
           )}
-          <button onClick={() => setIsDeleting(true)}>Delete</button>
+          <Button className="delete" onClick={() => setIsDeleting(true)}>
+            Delete
+          </Button>
           {invoice.status === "pending" && (
-            <button onClick={handleMarkAsPaid}>Mark as Paid</button>
+            <Button className="paid" onClick={handleMarkAsPaid}>
+              Mark as Paid
+            </Button>
           )}
         </div>
       </div>

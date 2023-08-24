@@ -1,17 +1,23 @@
 const themes = {
   lightMode: {
-    background: "#F8F8FB",
-    textBold: "#0C0E16",
-    text: "#888EB0",
-    formText: "#7E88C3",
-    modalBg: "#FFFFFF",
+    background: "var(--gray-light)",
+    textBold: "var(--black)",
+    text: "var(--grayish-blue)",
+    innerText: "var(--blue-medium)",
+    modalBg: "#fff",
+    editBtnBg: "#F9FAFE",
+    editBtnHover: "#DFE3FA",
+    saveDraftHover: "var(--black)",
   },
   darkMode: {
-    background: "#0C0E16",
-    textBold: "#FFFFFF",
-    text: "#DFE3FA",
-    formText: "#DFE3FA",
-    modalBg: "#1E2139",
+    background: "var(--black)",
+    textBold: "#fff",
+    text: "var(--blue-light)",
+    innerText: "var(--blue-light)",
+    modalBg: "var(--blue-darkest)",
+    editBtnBg: "var(--blue-dark)",
+    editBtnHover: "#fff",
+    saveDraftHover: "var(--blue-darkest)",
   },
 };
 
