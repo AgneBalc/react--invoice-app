@@ -103,10 +103,13 @@ export const GlobalStyles = createGlobalStyle`
 
   button {
    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: -0.25px;
+    line-height: 15px;
   }
 
   img {
-      max-width: 100%;
+    max-width: 100%;
    }
 
   fieldset {

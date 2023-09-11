@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as IconPlus } from "../../assets/icon-plus.svg";
 import { Invoice, InvoiceStatus } from "../../utils/types";
 import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
@@ -17,6 +17,7 @@ const HomeHeader = ({
   setSelectedStatus,
 }: HomeHeaderProps) => {
   const [showFilter, setShowFilter] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const filters: InvoiceStatus[] = ["paid", "pending", "draft"];
 
@@ -59,11 +60,16 @@ const HomeHeader = ({
             </label>
           ))}
       </div>
-      <Button className="new">
-        <Link to="new">
+      <Button
+        className="new"
+        onClick={() => {
+          navigate("/new");
+        }}
+      >
+        <div className="icon-plus">
           <IconPlus />
-          <span>New Invoice</span>
-        </Link>
+        </div>
+        New Invoice
       </Button>
     </div>
   );

@@ -7,12 +7,25 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   color: #fff;
+  border: none;
 
   &.new {
     background-color: var(--purple-primary);
+    padding: 8px 17px 8px 8px;
+    gap: 16px;
+
+    .icon-plus {
+      width: 32px;
+      height: 32px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
 
     &:hover {
-      background-color: var(--purple-primary--light);
+      background-color: var(--purple-primary-light);
     }
   }
 
