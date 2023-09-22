@@ -1,16 +1,33 @@
 import React from "react";
-import StyledButton from "./styles/Button.styles";
+import { IconButton, IconWrapper, TextButton } from "./styles/Button.styles";
+import IconPlus from "../../assets/icon-plus.svg";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  className: string;
+  className?: string;
+  variant: string;
+  icon?: boolean;
 }
 
-const Button = ({ children, className, ...props }: ButtonProps) => {
-  return (
-    <StyledButton className={className} {...props}>
+const Button = ({
+  children,
+  className,
+  variant = "primary",
+  icon,
+  ...props
+}: ButtonProps) => {
+  return icon ? (
+    <IconButton className={className} variant={variant} {...props}>
+      <IconWrapper>
+        <img src={IconPlus} alt="" />
+      </IconWrapper>
       {children}
-    </StyledButton>
+    </IconButton>
+  ) : (
+    <TextButton className={className} variant={variant} {...props}>
+      {children}
+    </TextButton>
   );
 };
 

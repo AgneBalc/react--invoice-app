@@ -1,3 +1,4 @@
+import FormHeading from "./styles/EditInvoicePage.styles";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux-hooks";
 import InvoiceForm from "../components/form/InvoiceForm";
@@ -12,7 +13,9 @@ const EditInvoicePage = () => {
 
   return (
     <section>
-      <h1>Edit {currentInvoiceId}</h1>
+      <FormHeading>
+        Edit <span>{currentInvoiceId}</span>
+      </FormHeading>
       <InvoiceForm edittingInvoice={currentInvoice} />
     </section>
   );

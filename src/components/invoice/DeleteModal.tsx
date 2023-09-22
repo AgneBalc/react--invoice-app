@@ -1,5 +1,11 @@
 import ReactDOM from "react-dom";
-import { styled } from "styled-components";
+import {
+  Overlay,
+  ModalContainer,
+  ModalHeading,
+  ModalMessage,
+  ButtonContainer,
+} from "./styles/DeleteModal.styles";
 import Button from "../ui/Button";
 
 interface ModalProps {
@@ -9,26 +15,26 @@ interface ModalProps {
 }
 
 const Backdrop = () => {
-  return <div className="backdrop"></div>;
+  return <Overlay></Overlay>;
 };
 
 const ModalOverlay = ({ id, onConfirm, onCancel }: ModalProps) => {
   return (
-    <InvoiceModalInner>
-      <h1>Confirm Deletion</h1>
-      <p>
+    <ModalContainer>
+      <ModalHeading>Confirm Deletion</ModalHeading>
+      <ModalMessage>
         Are you sure you want to delete invoice #{id}? This action cannot be
         undone.
-      </p>
-      <div>
-        <Button className="cancel" onClick={onCancel}>
+      </ModalMessage>
+      <ButtonContainer>
+        <Button variant="secondary" className="cancel" onClick={onCancel}>
           Cancel
         </Button>
-        <Button className="delete" onClick={onConfirm}>
+        <Button variant="warning" className="delete" onClick={onConfirm}>
           Delete
         </Button>
-      </div>
-    </InvoiceModalInner>
+      </ButtonContainer>
+    </ModalContainer>
   );
 };
 
@@ -40,46 +46,14 @@ const DeleteModal = ({ id, onConfirm, onCancel }: ModalProps) => {
   }
 
   return (
-    <Modal>
+    <>
       {ReactDOM.createPortal(<Backdrop />, portalElement)}
       {ReactDOM.createPortal(
         <ModalOverlay id={id} onConfirm={onConfirm} onCancel={onCancel} />,
         portalElement
       )}
-    </Modal>
+    </>
   );
 };
 
 export default DeleteModal;
-
-const Modal = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 80px);
-  height: 100vh;
-  z-index: 20;
-  transform: translateX(-100vw);
-  transition: all 0.3s ease-in-out;
-  .backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  &.active {
-    transform: translateX(0);
-  }
-`;
-
-const InvoiceModalInner = styled.div`
-  position: relative;
-  background-color: #f8f8fb;
-  width: 100%;
-  height: 100%;
-  z-index: 30;
-  overflow: hidden;
-`;

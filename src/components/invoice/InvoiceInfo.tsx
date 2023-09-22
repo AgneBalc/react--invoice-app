@@ -1,5 +1,12 @@
 import { Invoice } from "../../utils/types";
 import { formatDate } from "../../utils/helpers";
+import {
+  DetailsCard,
+  DetailsCardGrid,
+  AddressContainer,
+  InvoiceDetails,
+} from "./styles/InvoiceInfo.styles";
+import InvoiceItemsTable from "./InvoiceItemsTable";
 
 interface InvoiceInfoProps {
   invoice: Invoice;
@@ -7,13 +14,13 @@ interface InvoiceInfoProps {
 
 const InvoiceInfo = ({ invoice }: InvoiceInfoProps) => {
   return (
-    <section>
-      <div className="main-info">
-        <div>
-          <h1>{invoice.id}</h1>
-          <p>{invoice.description}</p>
+    <DetailsCard>
+      <DetailsCardGrid>
+        <div className="invoice-id-name">
+          <p>{invoice.id}</p>
+          <h1>{invoice.description}</h1>
         </div>
-        <address>
+        <AddressContainer className="sender-address">
           {invoice.senderAddress.street}
           <br />
           {invoice.senderAddress.city}
@@ -21,38 +28,41 @@ const InvoiceInfo = ({ invoice }: InvoiceInfoProps) => {
           {invoice.senderAddress.postCode}
           <br />
           {invoice.senderAddress.country}
-        </address>
+        </AddressContainer>
         <div className="invoice-dates">
-          <div className="created-date">
+          <InvoiceDetails className="created-date">
             <h2>Invoice date</h2>
             <p>{formatDate(invoice.createdAt)}</p>
-          </div>
-          <div className="payment-due">
+          </InvoiceDetails>
+          <InvoiceDetails className="payment-due">
             <h2>Payment Due</h2>
             <p>{formatDate(invoice.paymentDue)}</p>
-          </div>
+          </InvoiceDetails>
         </div>
-        <div className="client-address">
-          <div className="clilent-name">
+        <div className="client-name-address">
+          <InvoiceDetails className="clilent-name">
             <h2>Bill To</h2>
             <p>{invoice.clientName}</p>
-          </div>
-          <address>
-            {invoice.clientAddress.street}
-            <br />
-            {invoice.clientAddress.city}
-            <br />
-            {invoice.clientAddress.postCode}
-            <br />
-            {invoice.clientAddress.country}
-          </address>
+          </InvoiceDetails>
+          <InvoiceDetails>
+            <address>
+              {invoice.clientAddress.street}
+              <br />
+              {invoice.clientAddress.city}
+              <br />
+              {invoice.clientAddress.postCode}
+              <br />
+              {invoice.clientAddress.country}
+            </address>
+          </InvoiceDetails>
         </div>
-        <div className="client-email">
+        <InvoiceDetails className="client-email">
           <h2>Sent to</h2>
           <p>{invoice.clientEmail}</p>
-        </div>
-      </div>
-      <table>
+        </InvoiceDetails>
+      </DetailsCardGrid>
+      <InvoiceItemsTable invoice={invoice} />
+      {/* <table>
         <thead>
           <tr>
             <th>Item Name</th>
@@ -77,8 +87,8 @@ const InvoiceInfo = ({ invoice }: InvoiceInfoProps) => {
             <td colSpan={3}>&euro;{invoice.total.toFixed(2)}</td>
           </tr>
         </tfoot>
-      </table>
-    </section>
+      </table> */}
+    </DetailsCard>
   );
 };
 

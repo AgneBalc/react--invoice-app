@@ -228,30 +228,6 @@
         }
       ],
       "total": 3102.04
-    },
-    {
-      "id": "XO6521",
-      "createdAt": "2023-08-24",
-      "paymentDue": "2023-08-25",
-      "description": "",
-      "paymentTerms": 1,
-      "clientName": "",
-      "clientEmail": "",
-      "status": "draft",
-      "senderAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "clientAddress": {
-        "street": "",
-        "city": "",
-        "postCode": "",
-        "country": ""
-      },
-      "items": [],
-      "total": 0
     }
   ]
 }

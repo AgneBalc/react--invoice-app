@@ -1,7 +1,14 @@
+import {
+  DropdownContainer,
+  DropdownLabel,
+  DropdownInputWrapper,
+  OptionsContainer,
+  Option,
+} from "./styles/SelectDropdown.styles";
 import { useFormikContext } from "formik";
 import { Invoice } from "../../utils/types";
 import { paymentTermsOptions } from "../../utils/helpers";
-import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
+import IconDown from "../../assets/icon-arrow-down.svg";
 import { useState } from "react";
 
 const SelectDropdown = () => {
@@ -25,29 +32,33 @@ const SelectDropdown = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="paymentTerms">Payment Terms</label>
-      <div onClick={handleToggleOptions}>
+    <DropdownContainer>
+      <DropdownLabel htmlFor="paymentTerms">Payment Terms</DropdownLabel>
+      <DropdownInputWrapper
+        onClick={handleToggleOptions}
+        showOptions={showOptions}
+      >
         <input
           type="text"
           id="paymentTerms"
           value={selectedValue?.text}
           readOnly
         />
-        <IconDown />
-      </div>
+        <img src={IconDown} alt="Arrow down icon" />
+      </DropdownInputWrapper>
       {showOptions && (
-        <div>
-          <ul>
-            {paymentTermsOptions.map((option) => (
-              <li key={option.value} onClick={() => handleSelect(option.value)}>
-                {option.text}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <OptionsContainer>
+          {paymentTermsOptions.map((option) => (
+            <Option
+              key={option.value}
+              onClick={() => handleSelect(option.value)}
+            >
+              {option.text}
+            </Option>
+          ))}
+        </OptionsContainer>
       )}
-    </div>
+    </DropdownContainer>
   );
 };
 

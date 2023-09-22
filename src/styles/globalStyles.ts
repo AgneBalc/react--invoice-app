@@ -1,13 +1,19 @@
 import { createGlobalStyle } from "styled-components";
 
+// export const breakpoints = {
+//   mobile: "375px",
+//   tablet: "768px",
+//   desktop: "1024px",
+// };
+
 export const breakpoints = {
   mobile: "375px",
   tablet: "768px",
-  desktop: "1024px",
+  desktop: "1200px",
 };
 
 export const GlobalStyles = createGlobalStyle`
-  :root {
+  /* :root {
     // 1
     --purple-primary: #7C5DFA; 
     // 2
@@ -52,7 +58,6 @@ export const GlobalStyles = createGlobalStyle`
     letter-spacing: -0.1px;
     overflow-y: scroll;
     overflow-x: hidden;
-    /* transition: all 0.3s ease-in; */
   }
 
   main {
@@ -121,5 +126,47 @@ export const GlobalStyles = createGlobalStyle`
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
+  } */
+
+    *,
+    *::before,
+    *::after {
+      font-family: 'League Spartan', sans-serif;
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      }
+
+    body {
+        background: ${(props) => props.theme.body.bg};
+        color:${(props) => props.theme.body.color};
+    }
+
+main {
+  width: 100%;
+  padding: 2rem 1.5rem 6.5625rem 1.5rem;
+  margin: 0 auto;
+
+  @media screen and (min-width: ${breakpoints.tablet}) {
+    max-width: 48.625rem;
+    padding-top: 3.5rem;
+  }
+
+  @media screen and (min-width: ${breakpoints.desktop}) {
+    padding-top: 4.5rem;
+  }
+}
+
+    a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  button {
+   cursor: pointer;
   }
 `;

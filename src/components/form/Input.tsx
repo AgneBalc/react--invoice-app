@@ -1,3 +1,4 @@
+import { InputLabel, TextInput } from "./styles/Input.styles";
 import { getIn, useFormikContext } from "formik";
 import { Invoice } from "../../utils/types";
 
@@ -16,15 +17,19 @@ const Input = ({ type, label, name, placeholder, step }: InputProps) => {
 
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
-      <input
+      <InputLabel htmlFor={name} error={errors} submitCount={submitCount}>
+        {label}
+        {errorMessage && submitCount > 0 && <span>{errorMessage}</span>}
+      </InputLabel>
+      <TextInput
         type={type}
         id={name}
         placeholder={placeholder}
         step={step}
+        error={errors}
+        submitCount={submitCount}
         {...getFieldProps(name)}
       />
-      {errorMessage && submitCount > 0 && <p>{errorMessage}</p>}
     </div>
   );
 };

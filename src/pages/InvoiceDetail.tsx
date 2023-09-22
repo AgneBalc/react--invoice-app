@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../hooks/redux-hooks";
-import { ReactComponent as IconArrowLeft } from "../assets/icon-arrow-left.svg";
+import IconArrowLeft from "../assets/icon-arrow-left.svg";
 import InvoiceInfo from "../components/invoice/InvoiceInfo";
 import InvoiceHeader from "../components/invoice/InvoiceHeader";
+import { BackButton } from "./styles/InvoiceDetail.styled";
 
 const InvoiceDetailPage = () => {
   const { id: currentInvoiceId } = useParams();
@@ -17,12 +18,10 @@ const InvoiceDetailPage = () => {
 
   return (
     <>
-      <button>
-        <Link to={"/"}>
-          <IconArrowLeft />
-          <span>Go back</span>
-        </Link>
-      </button>
+      <BackButton to="/">
+        <img src={IconArrowLeft} alt="" />
+        Go back
+      </BackButton>
       <InvoiceHeader invoice={currentInvoice} />
       <InvoiceInfo invoice={currentInvoice} />
     </>

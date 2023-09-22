@@ -3,6 +3,7 @@ import { Invoice, InvoiceItem } from "../../utils/types";
 import { useEffect } from "react";
 import { ReactComponent as DeleteIcon } from "../../assets/icon-delete.svg";
 import Input from "./Input";
+import { ItemGrid, DeleteButton, ItemTotal } from "./styles/Item.styles";
 
 interface ItemProps {
   index: number;
@@ -31,7 +32,7 @@ const Item = ({ index, item, remove }: ItemProps) => {
   }, [items[index].total]);
 
   return (
-    <div>
+    <ItemGrid>
       <Input name={`items[${index}].name`} type="text" label="Item Name" />
       <Input
         name={`items[${index}].quantity`}
@@ -45,14 +46,14 @@ const Item = ({ index, item, remove }: ItemProps) => {
         label="Price"
         step="0.01"
       />
-      <div className="item-total">
-        <p>Total</p>
-        <span>{item.total.toFixed(2)}</span>
-      </div>
-      <button type="button" onClick={() => remove(index)}>
+      <ItemTotal>
+        <span className="total-label">Total</span>
+        <span className="amount">{item.total.toFixed(2)}</span>
+      </ItemTotal>
+      <DeleteButton type="button" onClick={() => remove(index)}>
         <DeleteIcon />
-      </button>
-    </div>
+      </DeleteButton>
+    </ItemGrid>
   );
 };
 

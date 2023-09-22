@@ -11,6 +11,13 @@ import DatePicker from "./DatePicker";
 import SelectDropdown from "./SelectDropdown";
 import Input from "./Input";
 import Button from "../ui/Button";
+import {
+  FieldSet,
+  Legend,
+  AddressFieldsGrid,
+  InvoiceDatesGrid,
+  FormBottom,
+} from "./styles/InvoiceForm.styles";
 
 interface InvoiceFormProps {
   edittingInvoice?: Invoice;
@@ -94,14 +101,14 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
     >
       {({ values, errors }) => (
         <Form>
-          <fieldset>
-            <legend>Bill From</legend>
+          <FieldSet>
+            <Legend>Bill From</Legend>
             <Input
               name="senderAddress.street"
               type="text"
               label="Street Address"
             />
-            <div>
+            <AddressFieldsGrid>
               <Input name="senderAddress.city" type="text" label="City" />
               <Input
                 name="senderAddress.postCode"
@@ -109,10 +116,10 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
                 label="Postal Code"
               />
               <Input name="senderAddress.country" type="text" label="Country" />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Bill To</legend>
+            </AddressFieldsGrid>
+          </FieldSet>
+          <FieldSet>
+            <Legend>Bill To</Legend>
             <Input name="clientName" type="text" label="Client's Name" />
             <Input name="clientEmail" type="email" label="Client's Email" />
             <Input
@@ -120,7 +127,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
               type="text"
               label="Street Address"
             />
-            <div>
+            <AddressFieldsGrid>
               <Input name="clientAddress.city" type="text" label="City" />
               <Input
                 name="clientAddress.postCode"
@@ -128,25 +135,24 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
                 label="Postal Code"
               />
               <Input name="clientAddress.country" type="text" label="Country" />
-            </div>
-          </fieldset>
-          <div>
-            <div>
-              <DatePicker />
-              <SelectDropdown />
-            </div>
+            </AddressFieldsGrid>
+          </FieldSet>
+          <InvoiceDatesGrid>
+            <DatePicker />
+            <SelectDropdown />
             <Input
               name="description"
               type="text"
               label="Project Description"
               placeholder="e.g. Graphic Design Service"
             />
-          </div>
+          </InvoiceDatesGrid>
           <div>
             <ItemList items={values.items} />
           </div>
-          <div className="form-buttons">
+          <FormBottom>
             <Button
+              variant="secondary"
               type="button"
               className={edittingInvoice ? "cancel" : "discard"}
               onClick={() => navigate("/")}
@@ -155,6 +161,7 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
             </Button>
             {!edittingInvoice && (
               <Button
+                variant="tertiary"
                 type="button"
                 className="save-draft"
                 onClick={() => handleSaveAsDraft(values)}
@@ -169,10 +176,10 @@ const InvoiceForm = ({ edittingInvoice }: InvoiceFormProps) => {
                 Save as Draft
               </Button>
             )}
-            <Button type="submit" className="save">
+            <Button variant="primary" type="submit" className="save">
               {edittingInvoice ? "Save Changes" : "Save & Send"}
             </Button>
-          </div>
+          </FormBottom>
         </Form>
       )}
     </Formik>

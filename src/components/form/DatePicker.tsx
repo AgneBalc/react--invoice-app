@@ -1,7 +1,15 @@
+import {
+  DatePickerContainer,
+  InputWrapper,
+  DateLabel,
+  CalendarContainer,
+  CalendarButtons,
+  Days,
+} from "./styles/DatePicker.styles";
 import { useFormikContext } from "formik";
 import { ReactComponent as IconCalendar } from "../../assets/icon-calendar.svg";
-import { ReactComponent as IconArrowLeft } from "../../assets/icon-arrow-left.svg";
-import { ReactComponent as IconArrowRight } from "../../assets/icon-arrow-right.svg";
+import IconArrowLeft from "../../assets/icon-arrow-left.svg";
+import IconArrowRight from "../../assets/icon-arrow-right.svg";
 import { Invoice } from "../../utils/types";
 import { useEffect, useState } from "react";
 import { format, getDaysInMonth, getYear } from "date-fns";
@@ -64,38 +72,50 @@ const DatePicker = () => {
   const daysInMonth = Array.from(Array(daysInMonthTotal).keys(), (x) => x + 1);
 
   return (
-    <div>
-      <label htmlFor="createdAt">Invoice Date</label>
-      <div onClick={handleToggleCalendar}>
+    <DatePickerContainer>
+      <DateLabel htmlFor="createdAt">Invoice Date</DateLabel>
+      <InputWrapper onClick={handleToggleCalendar}>
         <input
           type="text"
           id="createdAt"
           readOnly
           {...getFieldProps("createdAt")}
         />
-        <IconCalendar />
-      </div>
+        <IconCalendar className="calendarIcon" />
+      </InputWrapper>
       {showCalendar && (
-        <div>
-          <div>
+        <CalendarContainer>
+          <CalendarButtons>
             <button type="button" onClick={handlePrevMonth}>
-              <IconArrowLeft />
+              <img src={IconArrowLeft} alt="Previous month incon" />
             </button>
             <p>{format(new Date(selectedYear, selectedMonth), "MMM yyyy")}</p>
             <button type="button" onClick={handleNextMonth}>
-              <IconArrowRight />
+              <img src={IconArrowRight} alt="Next month icon" />
             </button>
-          </div>
-          <div>
-            {daysInMonth.map((day, index) => (
-              <p key={index} onClick={() => handleDateSelect(day)}>
-                {day}
-              </p>
-            ))}
-          </div>
-        </div>
+          </CalendarButtons>
+          <Days>
+            {daysInMonth.map((day, index) =>
+              selectedDate.getDate() === day &&
+              selectedDate.getFullYear() === selectedYear &&
+              selectedDate.getMonth() === selectedMonth ? (
+                <p
+                  className="selectedDay"
+                  key={index}
+                  onClick={() => handleDateSelect(day)}
+                >
+                  {day}
+                </p>
+              ) : (
+                <p key={index} onClick={() => handleDateSelect(day)}>
+                  {day}
+                </p>
+              )
+            )}
+          </Days>
+        </CalendarContainer>
       )}
-    </div>
+    </DatePickerContainer>
   );
 };
 

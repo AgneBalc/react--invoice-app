@@ -1,8 +1,7 @@
 import { Invoice, InvoiceItem } from "../../utils/types";
 import { FieldArray, useFormikContext } from "formik";
-import { ReactComponent as PlusIcon } from "../../assets/icon-plus.svg";
 import Item from "./Item";
-import Button from "../ui/Button";
+import { Wrapper, AddNewItemButton } from "./styles/ItemList.styles";
 
 interface ItemListProps {
   items: InvoiceItem[];
@@ -11,10 +10,10 @@ interface ItemListProps {
 const ItemList = ({ items }: ItemListProps) => {
   const { errors, submitCount } = useFormikContext<Invoice>();
   return (
-    <div>
-      <h3>Items List</h3>
+    <Wrapper>
+      <span>Items List</span>
       {typeof errors.items === "string" && submitCount > 0 && (
-        <p>{errors.items}</p>
+        <p className="error">{errors.items}</p>
       )}
       <FieldArray name="items">
         {({ remove, push }) => (
@@ -23,20 +22,20 @@ const ItemList = ({ items }: ItemListProps) => {
               items?.map((item: InvoiceItem, index: number) => (
                 <Item key={index} item={item} index={index} remove={remove} />
               ))}
-            <Button
+            <AddNewItemButton
+              variant="secondary"
               type="button"
               className="new-item"
               onClick={() =>
                 push({ name: "", quantity: 0, total: 0, price: 0 })
               }
             >
-              <PlusIcon />
-              <span>Add New Item</span>
-            </Button>
+              + Add New Item
+            </AddNewItemButton>
           </div>
         )}
       </FieldArray>
-    </div>
+    </Wrapper>
   );
 };
 
