@@ -8,10 +8,9 @@ import Button from "../ui/Button";
 import {
   InvoiceActions,
   InvoiceHeaderWrapper,
-  InvoiceStatusContainer,
-  InvoiceStatusText,
   StatusLabel,
 } from "./styles/InvoiceHeader.styles";
+import InvoiceStatusBadge from "../ui/InvoiceStatusBadge";
 
 interface InvoiceHeaderProps {
   invoice: Invoice;
@@ -35,13 +34,7 @@ const InvoiceHeader = ({ invoice }: InvoiceHeaderProps) => {
     <>
       <InvoiceHeaderWrapper>
         <StatusLabel>Status</StatusLabel>
-        <InvoiceStatusContainer status={invoice.status}>
-          <div>
-            <InvoiceStatusText status={invoice.status}>
-              {invoice.status}
-            </InvoiceStatusText>
-          </div>
-        </InvoiceStatusContainer>
+        <InvoiceStatusBadge status={invoice.status} />
         <InvoiceActions>
           {invoice.status !== "paid" && (
             <Button variant="secondary">

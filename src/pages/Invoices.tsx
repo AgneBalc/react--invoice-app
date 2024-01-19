@@ -16,19 +16,18 @@ const InvoicesPage = () => {
 
   return (
     <>
-      {/* <HomeHeader
+      <HomeHeader
         invoices={filteredInvoices}
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
-      /> */}
-      <Loader />
-      {/* {loading ? (
-        <p>Loading...</p>
+      />
+      {loading ? (
+        <Loader />
       ) : !filteredInvoices.length ? (
         <CreateInvoiceMessage />
       ) : (
         <InvoicesList filteredInvoices={filteredInvoices} />
-      )} */}
+      )}
     </>
   );
 };

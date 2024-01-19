@@ -1,6 +1,5 @@
 import { InvoiceStatus } from "../../utils/types";
 import { useState } from "react";
-import { ReactComponent as IconDown } from "../../assets/icon-arrow-down.svg";
 import {
   CustomCheckboxLabel,
   DropDownButton,
@@ -38,7 +37,6 @@ const FilterDropdown = ({
         onClick={handleFilterToggle}
       >
         Filter by status
-        {/* <IconDown /> */}
       </DropDownButton>
       {showFilter && (
         <DropdownWrapper>

@@ -62,32 +62,6 @@ const InvoiceInfo = ({ invoice }: InvoiceInfoProps) => {
         </InvoiceDetails>
       </DetailsCardGrid>
       <InvoiceItemsTable invoice={invoice} />
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>QTY.</th>
-            <th>Price</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoice.items.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>{item.quantity}</td>
-              <td>&euro;{item.price.toFixed(2)}</td>
-              <td>&euro;{item.total.toFixed(2)}</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>Amount Due</td>
-            <td colSpan={3}>&euro;{invoice.total.toFixed(2)}</td>
-          </tr>
-        </tfoot>
-      </table> */}
     </DetailsCard>
   );
 };

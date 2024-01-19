@@ -4,7 +4,7 @@ import Input from "../Input";
 
 const FieldSet = styled.fieldset`
   border: none;
-  /* margin-bottom: 1rem; */
+  margin-bottom: 1rem;
 `;
 
 const Legend = styled.legend`
@@ -17,7 +17,7 @@ const Legend = styled.legend`
 `;
 
 const AddressFieldsGrid = styled.div`
-  /* margin-top: 1.5rem; */
+  margin-top: 1.5rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0 24px;
@@ -33,7 +33,7 @@ const AddressFieldsGrid = styled.div`
 `;
 
 const InvoiceDatesGrid = styled.div`
-  /* margin-top: 1.5rem; */
+  margin-top: 1.5rem;
 
   @media screen and (min-width: ${breakpoints.tablet}) {
     display: grid;

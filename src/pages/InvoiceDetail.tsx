@@ -4,6 +4,7 @@ import IconArrowLeft from "../assets/icon-arrow-left.svg";
 import InvoiceInfo from "../components/invoice/InvoiceInfo";
 import InvoiceHeader from "../components/invoice/InvoiceHeader";
 import { BackButton } from "./styles/InvoiceDetail.styled";
+import Loader from "../components/ui/Loader";
 
 const InvoiceDetailPage = () => {
   const { id: currentInvoiceId } = useParams();
@@ -21,14 +22,14 @@ const InvoiceDetailPage = () => {
         Go back
       </BackButton>
       {loading ? (
-        <p>Loading invoice {currentInvoiceId}...</p>
+        <Loader />
       ) : currentInvoice ? (
         <>
           <InvoiceHeader invoice={currentInvoice} />
           <InvoiceInfo invoice={currentInvoice} />
         </>
       ) : (
-        <p>Not Found</p>
+        <p>{currentInvoiceId} Not Found</p>
       )}
     </>
   );

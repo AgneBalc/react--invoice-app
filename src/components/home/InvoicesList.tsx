@@ -1,5 +1,6 @@
 import { Invoice } from "../../utils/types";
 import InvoiceCard from "./InvoiceCard";
+import { StyledInvoicesList } from "./styles/InvoicesList.styles";
 
 interface InvoicesListProps {
   filteredInvoices: Invoice[];
@@ -7,11 +8,11 @@ interface InvoicesListProps {
 
 const InvoicesList = ({ filteredInvoices }: InvoicesListProps) => {
   return (
-    <section>
+    <StyledInvoicesList>
       {filteredInvoices.map((invoice) => (
         <InvoiceCard key={invoice.id} invoice={invoice} />
       ))}
-    </section>
+    </StyledInvoicesList>
   );
 };
 

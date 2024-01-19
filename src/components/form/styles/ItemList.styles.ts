@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { breakpoints } from "../../../styles/globalStyles";
 import Button from "../../ui/Button";
 
 const Wrapper = styled.div`

@@ -1,34 +1,76 @@
-## The challenge
+# Frontend Mentor - Product feedback app solution
 
-Your users should be able to:
+This is a solution to the [Product feedback app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
+
+## Table of contents
+
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshots](#screenshots)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+- [Running it locally](#running-it-locally)
+
+## Overview
+
+### The challenge
+
+Users should be able to:
 
 - View the optimal layout for the app depending on their device's screen size
 - See hover states for all interactive elements on the page
-- Create, read, update, and delete invoices
-- Receive form validations when trying to create/edit an invoice
-- Save draft invoices, and mark pending invoices as paid
-- Filter invoices by status (draft/pending/paid)
-- Toggle light and dark mode
+- Create, read, update, and delete product feedback requests
+- Receive form validations when trying to create/edit feedback requests
+- Sort suggestions by most/least upvotes and most/least comments
+- Filter suggestions by category
+- Add comments and replies to a product feedback request
+- Upvote product feedback requests
 - **Bonus**: Keep track of any changes, even after refreshing the browser (`localStorage` could be used for this if you're not building out a full-stack app)
 
-### Expected Behaviour
+### Screenshots
 
-- Creating an invoice
-  - When creating a new invoice, an ID needs to be created. Each ID should be 2 random uppercased letters followed by 4 random numbers.
-  - Invoices can be created either as drafts or as pending. Clicking "Save as Draft" should allow the user to leave any form field blank, but should create an ID if one doesn't exist and set the status to "draft". Clicking "Save & Send" should require all forms fields to be filled in, and should set the status to "pending".
-  - Changing the Payments Terms field should set the `paymentDue` property based on the `createdAt` date plus the numbers of days set for the payment terms.
-  - The `total` should be the sum of all items on the invoice.
-- Editing an invoice
-  - When saving changes to an invoice, all fields are required when the "Save Changes" button is clicked. If the user clicks "Cancel", any unsaved changes should be reset.
-  - If the invoice being edited is a "draft", the status needs to be updated to "pending" when the "Save Changes" button is clicked. All fields are required at this stage.
-- Users should be able to mark invoices as paid by clicking the "Mark as Paid" button. This should change the invoice's status to "paid".
-- Users should receive a confirmation modal when trying to delete invoices.
-- Feel free not to add custom styling for the date and dropdown form fields. The designs for those fields are optional extras and are mostly for illustration purposes.
+<div align="center">
+  <img src="/src/assets/invoice-app.png" alt="Screenshot 1" width="450"/>
+  <img src="/src/assets/invoice-app-1.png" alt="Screenshot 2" width="300"/>
+</div>
 
-## Deploying your project
+### Links
 
-As mentioned above, there are a number of ways to host your project for free. We recommend using [Vercel](https://bit.ly/fem-vercel) as it's an amazing service and extremely simple to get set up with. If you'd like to use Vercel, here are some steps to follow to get started:
+- Solution URL: (https://github.com/AgneBalc/react--invoice-app)
+- Live Site URL: (https://react-invoice-app-tau.vercel.app/)
 
-1. [Sign up to Vercel](https://bit.ly/fem-vercel-signup) and go through the onboarding flow, ensuring your GitHub account is connected by using their [Vercel for GitHub](https://vercel.com/docs/v2/git-integrations/vercel-for-github) integration.
-2. Connect your project to Vercel from the ["Import project" page](https://vercel.com/import), using the "From Git Repository" button and selecting the project you want to deploy.
-3. Once connected, every time you `git push`, Vercel will create a new [deployment](https://vercel.com/docs/v2/platform/deployments) and the deployment URL will be shown on your [Dashboard](https://vercel.com/dashboard). You will also receive an email for each deployment with the URL.
+## My process
+
+### Built with
+
+- [React](https://reactjs.org/) - JS library
+- [Styled Components](https://styled-components.com/) - CSS-in-JS library for styling
+- [Redux](https://redux.js.org/) - state management
+- [TypeScript](https://www.typescriptlang.org/) - syntactic superset of JavaScript with static typing
+- [formik](https://formik.org/) - form handling
+- [React Router](https://reactrouter.com/en/main) - page Routing
+- [Yup](https://www.npmjs.com/package/yup?activeTab=readme) - data validation
+- [Axios](https://axios-http.com/) - promise based HTTP library
+- [JSON Server](https://github.com/typicode/json-server) - fake REST API for front-end protyping/mocking
+
+### Running it locally
+
+You must have [Node.js](https://nodejs.org/en) installed on your computer before you can run the project locally.
+Once installed, you can proceed to clone the project:
+
+```
+    git clone https://github.com/AgneBalc/react--invoice-app.git
+```
+
+Then, change the working directory to the cloned project:
+
+```
+    cd react--invoice-app
+```
+
+And finally, install the project's dependencies:
+
+```
+    npm install
+```

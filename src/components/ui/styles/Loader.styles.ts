@@ -7,8 +7,8 @@ const LoaderWrapper = styled.div`
 `;
 
 const StyledLoader = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
   border: 5px solid #7c5dfa;
   border-bottom-color: transparent;
   border-radius: 50%;
