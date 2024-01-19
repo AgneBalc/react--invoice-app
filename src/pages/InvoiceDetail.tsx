@@ -8,13 +8,11 @@ import { BackButton } from "./styles/InvoiceDetail.styled";
 const InvoiceDetailPage = () => {
   const { id: currentInvoiceId } = useParams();
 
-  const currentInvoice = useAppSelector((state) =>
-    state.invoices.invoices.find((invoice) => invoice.id === currentInvoiceId)
-  );
+  const { invoices, loading } = useAppSelector((state) => state.invoices);
 
-  if (!currentInvoice) {
-    return <p>Loading invoice {currentInvoiceId}...</p>;
-  }
+  const currentInvoice = invoices.find(
+    (invoice) => invoice.id === currentInvoiceId
+  );
 
   return (
     <>
@@ -22,8 +20,18 @@ const InvoiceDetailPage = () => {
         <img src={IconArrowLeft} alt="" />
         Go back
       </BackButton>
-      <InvoiceHeader invoice={currentInvoice} />
-      <InvoiceInfo invoice={currentInvoice} />
+      {loading ? (
+        <p>Loading invoice {currentInvoiceId}...</p>
+      ) : currentInvoice ? (
+        <>
+          <InvoiceHeader invoice={currentInvoice} />
+          <InvoiceInfo invoice={currentInvoice} />
+        </>
+      ) : (
+        <p>Not Found</p>
+      )}
+      {/* <InvoiceHeader invoice={currentInvoice} />
+      <InvoiceInfo invoice={currentInvoice} /> */}
     </>
   );
 };

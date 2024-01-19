@@ -10,10 +10,12 @@ import {
 
 interface InvoicesInicialState {
   invoices: Invoice[];
+  loading: boolean;
 }
 
 const initialState: InvoicesInicialState = {
   invoices: [],
+  loading: false,
 };
 
 const invoicesSlice = createSlice({
@@ -22,8 +24,12 @@ const invoicesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getInvoices.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(getInvoices.fulfilled, (state, action) => {
         state.invoices = action.payload;
+        state.loading = false;
       })
       .addCase(createInvoice.fulfilled, (state, action) => {
         state.invoices.push(action.payload);

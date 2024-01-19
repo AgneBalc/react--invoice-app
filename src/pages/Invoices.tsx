@@ -6,7 +6,7 @@ import HomeHeader from "../components/home/HomeHeader";
 
 const InvoicesPage = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
-  const { invoices } = useAppSelector((state) => state.invoices);
+  const { invoices, loading } = useAppSelector((state) => state.invoices);
 
   const filteredInvoices =
     selectedStatus === ""
@@ -20,7 +20,9 @@ const InvoicesPage = () => {
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
       />
-      {!filteredInvoices.length ? (
+      {loading ? (
+        <p>Loading...</p>
+      ) : !filteredInvoices.length ? (
         <CreateInvoiceMessage />
       ) : (
         <InvoicesList filteredInvoices={filteredInvoices} />
