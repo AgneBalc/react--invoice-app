@@ -31,14 +31,14 @@ Users should be able to:
 ### Screenshots
 
 <div align="center">
-  <img src="/src/assets/invoice-app.png" alt="Screenshot 1" width="450"/>
-  <img src="/src/assets/invoice-app-1.png" alt="Screenshot 2" width="300"/>
+  <img src="/src/assets/invoice-app.png" alt="Screenshot 1" width="700"/>
+  <img src="/src/assets/invoice-app-1.png" alt="Screenshot 2" width="250" />
 </div>
 
 ### Links
 
-- Solution URL: (https://github.com/AgneBalc/react--invoice-app)
-- Live Site URL: (https://react-invoice-app-tau.vercel.app/)
+- [Solution URL](https://github.com/AgneBalc/react--invoice-app)
+- [Live Site URL](https://react-invoice-app-tau.vercel.app/)
 
 ## My process
 
@@ -54,7 +54,7 @@ Users should be able to:
 - [Axios](https://axios-http.com/) - promise based HTTP library
 - [JSON Server](https://github.com/typicode/json-server) - fake REST API for front-end protyping/mocking
 
-### Running it locally
+## Running it locally
 
 You must have [Node.js](https://nodejs.org/en) installed on your computer before you can run the project locally.
 Once installed, you can proceed to clone the project:
