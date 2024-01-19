@@ -30,8 +30,6 @@ const InvoiceDetailPage = () => {
       ) : (
         <p>Not Found</p>
       )}
-      {/* <InvoiceHeader invoice={currentInvoice} />
-      <InvoiceInfo invoice={currentInvoice} /> */}
     </>
   );
 };

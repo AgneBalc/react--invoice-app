@@ -3,6 +3,7 @@ import { useAppSelector } from "../hooks/redux-hooks";
 import { useState } from "react";
 import CreateInvoiceMessage from "../components/home/CreateInvoiceMessage";
 import HomeHeader from "../components/home/HomeHeader";
+import Loader from "../components/ui/Loader";
 
 const InvoicesPage = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -15,18 +16,19 @@ const InvoicesPage = () => {
 
   return (
     <>
-      <HomeHeader
+      {/* <HomeHeader
         invoices={filteredInvoices}
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
-      />
-      {loading ? (
+      /> */}
+      <Loader />
+      {/* {loading ? (
         <p>Loading...</p>
       ) : !filteredInvoices.length ? (
         <CreateInvoiceMessage />
       ) : (
         <InvoicesList filteredInvoices={filteredInvoices} />
-      )}
+      )} */}
     </>
   );
 };
